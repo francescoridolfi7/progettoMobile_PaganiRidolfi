@@ -13,7 +13,15 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.3
+<<<<<<< HEAD
   provider: 6.0.5
+=======
+<<<<<<< HEAD
+  shared_preferences: ^2.0.8
+=======
+  provider: 6.0.5
+>>>>>>> e53ef87c76d50831e8ec2553a5adc4900878b363
+>>>>>>> 81b60126222f20d86f42bd0cb62e1a71553fee70
 
  
   cupertino_icons: ^1.0.2
