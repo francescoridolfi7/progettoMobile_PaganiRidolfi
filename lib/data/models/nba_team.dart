@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 class NbaTeam {
   final int id;
   final String fullName;
