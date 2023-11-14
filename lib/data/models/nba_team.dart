@@ -17,6 +17,17 @@ class NbaTeam {
     required this.division,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'fullName': fullName,
+      'abbreviation': abbreviation,
+      'city': city,
+      'conference': conference,
+      'divisions': division,
+    };
+  }
+
   factory NbaTeam.fromJson(Map<String, dynamic> json) {
     return NbaTeam(
       id: json['id'],
