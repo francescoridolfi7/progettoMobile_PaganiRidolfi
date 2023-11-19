@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
+
+class TeamListScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final teamListViewModel =
+        Provider.of<TeamListViewModel>(context, listen: false);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Elenco Squadre NBA'),
+      ),
+      body: FutureBuilder<List<NbaTeam>>(
+        future: teamListViewModel.getTeams(context),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Errore: ${snapshot.error}'));
+          } else {
+            final teams = snapshot.data ?? [];
+            return ListView.builder(
+              itemCount: teams.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(teams[index].fullName),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            TeamDetailsScreen(team: teams[index]),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
+          }
+        },
+      ),
+    );
+  }
+}

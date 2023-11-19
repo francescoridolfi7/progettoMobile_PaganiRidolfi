@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
