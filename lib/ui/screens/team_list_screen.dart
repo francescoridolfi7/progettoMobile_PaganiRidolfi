@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 
 class TeamListScreen extends StatelessWidget {
+  const TeamListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final teamListViewModel =

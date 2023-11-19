@@ -6,10 +6,12 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/te
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         title: 'NBA Teams',
         initialRoute: '/',
         routes: {
-          '/': (context) => TeamListScreen(),
+          '/': (context) => const TeamListScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/teamDetails') {

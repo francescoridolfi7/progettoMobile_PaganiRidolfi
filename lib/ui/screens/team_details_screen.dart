@@ -4,7 +4,7 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 class TeamDetailsScreen extends StatelessWidget {
   final NbaTeam team;
 
-  TeamDetailsScreen({required this.team});
+  const TeamDetailsScreen({super.key, required this.team});
 
   @override
   Widget build(BuildContext context) {

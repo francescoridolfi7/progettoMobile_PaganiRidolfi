@@ -5,7 +5,7 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/tea
 class TeamCard extends StatelessWidget {
   final NbaTeam team;
 
-  TeamCard({required this.team});
+  const TeamCard({super.key, required this.team});
 
   @override
   Widget build(BuildContext context) {
