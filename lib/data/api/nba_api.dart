@@ -1,6 +1,9 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class NbaApi {
   final String apiKey;
@@ -9,6 +12,15 @@ class NbaApi {
   NbaApi(this.apiKey);
 
   Future<Map<String, dynamic>> getNBATeamList() async {
+    return await compute(_fetchAndSaveData, {
+      'url': '$apiUrl/teams',
+      'cacheKey': 'teamList',
+      'headers': {
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapid.com',
+        'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+      },
+    });
+    /*
     final cachedData = await _getLocalCache('teamList');
     if (cachedData != null) {
       return cachedData;
@@ -27,11 +39,19 @@ class NbaApi {
       return data;
     } else {
       throw Exception('Errore nella richiesta API');
-    }
+    }*/
   }
 
   Future<Map<String, dynamic>> getNBATeamDetails(int teamId) async {
-    final cachedData = await _getLocalCache('teamDetails_$teamId');
+    return await compute(_fetchAndSaveData, {
+      'url': '$apiUrl/teams/$teamId',
+      'cacheKey': 'teamDetails_$teamId',
+      'headers': {
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapid.com',
+        'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+      },
+    });
+    /*final cachedData = await _getLocalCache('teamDetails_$teamId');
     if (cachedData != null) {
       return cachedData;
     }
@@ -50,6 +70,28 @@ class NbaApi {
     } else {
       throw Exception(
           'Errore durante la chiamata API per i dettagli della squadra');
+    }*/
+  }
+
+  Future<Map<String, dynamic>> _fetchAndSaveData(
+      Map<String, dynamic> args) async {
+    final url = args['url'] as String;
+    final cacheKey = args['cacheKey'] as String;
+    final headers = args['headers'] as Map<String, String>;
+
+    final cachedData = await _getLocalCache(cacheKey);
+    if (cachedData != null) {
+      return cachedData;
+    }
+
+    final response = await Dio().get(url, options: Options(headers: headers));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.data);
+      _saveLocalCache(cacheKey, data);
+      return data;
+    } else {
+      throw Exception('Errore nella richiesta API');
     }
   }
 
