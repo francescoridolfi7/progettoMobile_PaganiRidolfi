@@ -22,7 +22,7 @@ class NbaTeam {
       'abbreviation': abbreviation,
       'city': city,
       'conference': conference,
-      'divisions': division,
+      'division': division,
     };
   }
 
