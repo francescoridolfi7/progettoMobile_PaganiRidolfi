@@ -3,10 +3,12 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
 
 class NbaApi {
   final String apiKey;
   final String apiUrl = 'rapidapi.com';
+  final _logger = Logger();
 
   NbaApi(this.apiKey);
 
@@ -111,6 +113,23 @@ class NbaApi {
       }
     } else {
       return null;
+    }
+  }
+
+  Future<void> fetchDataAndSaveInBackground() async {
+    final args = {
+      'url': '',
+      'cacheKey': 'teamList',
+      'headers': {
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapid.com',
+        'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+      },
+    };
+
+    try {
+      await _fetchAndSaveData(args);
+    } catch (e) {
+      _logger.e('Errore durante il recuper ed il salvataggio dei dati:$e');
     }
   }
 }
