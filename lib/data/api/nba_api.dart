@@ -6,8 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 
 class NbaApi {
-  final String apiKey;
-  final String apiUrl = 'rapidapi.com';
+  String apiKey = '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb';
+  final String apiUrl = 'https://api-nba-v1.p.rapidapi.com';
   final _logger = Logger();
 
   NbaApi(this.apiKey);
@@ -21,8 +21,8 @@ class NbaApi {
     final response = await http.get(
       Uri.parse('$apiUrl/teams'),
       headers: {
-        'X-RapidAPI-Host': 'api-nba-v1.p.rapid.com',
-        'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+        'X-RapidAPI-Key': apiKey,
       },
     );
 
@@ -44,8 +44,8 @@ class NbaApi {
     final response = await http.get(
       Uri.parse('$apiUrl/teams/$teamId'),
       headers: {
-        'X-RapidAPI-Host': 'api-nba-v1.p.rapid.com',
-        'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+        'X-RapidAPI-Key': apiKey,
       },
     );
 
@@ -118,11 +118,11 @@ class NbaApi {
 
   Future<void> fetchDataAndSaveInBackground() async {
     final args = {
-      'url': '',
+      'url': '$apiUrl/teams',
       'cacheKey': 'teamList',
       'headers': {
-        'X-RapidAPI-Host': 'api-nba-v1.p.rapid.com',
-        'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+        'X-RapidAPI-Key': apiKey,
       },
     };
 
