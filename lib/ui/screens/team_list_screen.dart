@@ -29,7 +29,7 @@ class TeamListScreen extends StatelessWidget {
               itemCount: teams.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(teams[index].fullName),
+                  title: Text(teams[index].name),
                   onTap: () {
                     Navigator.push(
                       context,

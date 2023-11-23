@@ -18,8 +18,8 @@ class TeamCard extends StatelessWidget {
           radius: 30,
           //inserire immagine squadra
         ),
-        title: Text(team.fullName),
-        subtitle: Text('${team.city}, ${team.abbreviation}'),
+        title: Text(team.name),
+        subtitle: Text('${team.city}, ${team.nickname}'),
         trailing: const Icon(Icons.arrow_forward),
         onTap: () {
           Navigator.push(

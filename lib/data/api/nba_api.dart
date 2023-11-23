@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +30,7 @@ class NbaApi {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
+        print('Team List Response: $data');
       _saveLocalCache('teamList', data);
       return data;
     } else {

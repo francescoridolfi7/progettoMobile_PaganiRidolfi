@@ -17,11 +17,11 @@ class TeamDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Nome completo: ${team.fullName}'),
-            Text('Abbreviazione: ${team.abbreviation}'),
+            Text('Nome completo: ${team.name}'),
+            Text('Abbreviazione: ${team.nickname}'),
             Text('Città: ${team.city}'),
-            Text('Conferenza: ${team.conference}'),
-            Text('Divisione: ${team.division}'),
+            Text('Conferenza: ${team.leagues.standard.conference}'),
+            Text('Divisione: ${team.leagues.standard.division}'),
             const SizedBox(height: 16), // Aggiunto const qui
             const Text('Statistiche della squadra:'), // Aggiunto const qui
             DataTable(
