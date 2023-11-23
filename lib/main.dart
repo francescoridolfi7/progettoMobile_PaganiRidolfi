@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_list_screen.dart';
@@ -14,8 +15,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => TeamListViewModel(),
+    return MultiProvider(
+      providers: [
+        Provider<NbaApi>(
+          create: (context) =>
+              NbaApi('4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb'),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => TeamListViewModel(),
+        ),
+      ],
       child: MaterialApp(
         title: 'NBA Teams',
         initialRoute: '/',
