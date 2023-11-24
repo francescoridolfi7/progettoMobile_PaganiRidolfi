@@ -11,8 +11,10 @@ class TeamListViewModel extends ChangeNotifier {
   try {
     final nbaApi = Provider.of<NbaApi>(context, listen: false);
     final teamList = await nbaApi.getNBATeamList();
+    print('Team List Response teamList: $teamList');
 
-    final teamDataList = teamList['data'] as List<dynamic>?;
+    final teamDataList = teamList['response'] as List<dynamic>?;
+     print('Team List Response teamDataList: $teamDataList');
 
     if (teamDataList == null) {
       print('Attenzione: La lista delle squadre è null!');
@@ -20,6 +22,7 @@ class TeamListViewModel extends ChangeNotifier {
     }
 
     final teams = teamDataList.map((teamData) => NbaTeam.fromJson(teamData)).toList();
+    print('Team List Response teams: $teams');
 
     if (teams.isEmpty) {
       print('Attenzione: La lista delle squadre è vuota!');

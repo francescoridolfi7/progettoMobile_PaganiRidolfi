@@ -16,6 +16,7 @@ class NbaApi {
 
   Future<Map<String, dynamic>> getNBATeamList() async {
     final cachedData = await _getLocalCache('teamList');
+    print('Team List Response cachedData: $cachedData');
     if (cachedData != null) {
       return cachedData;
     }
@@ -30,7 +31,7 @@ class NbaApi {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
-        print('Team List Response: $data');
+        print('Team List Response data: $data');
       _saveLocalCache('teamList', data);
       return data;
     } else {
