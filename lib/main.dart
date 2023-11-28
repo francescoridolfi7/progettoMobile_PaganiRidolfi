@@ -3,7 +3,9 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_a
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_list_screen.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/games_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,6 +25,14 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => TeamListViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              StandingsViewModel(Provider.of<NbaApi>(context, listen: false)),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              GamesViewModel(Provider.of<NbaApi>(context, listen: false)),
         ),
       ],
       child: MaterialApp(
