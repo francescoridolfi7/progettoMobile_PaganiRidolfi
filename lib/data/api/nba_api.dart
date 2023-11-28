@@ -31,7 +31,7 @@ class NbaApi {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
-        print('Team List Response data: $data');
+      print('Team List Response data: $data');
       _saveLocalCache('teamList', data);
       return data;
     } else {
@@ -60,6 +60,42 @@ class NbaApi {
     } else {
       throw Exception(
           'Errore durante la chiamata API per i dettagli della squadra');
+    }
+  }
+
+  Future<Map<String, dynamic>> getNBATeamStandings() async {
+    final response = await http.get(
+      Uri.parse('$apiUrl/standings'),
+      headers: {
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+        'X-RapidAPI-Key': apiKey,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception(
+          'Errore durante la richiesta API per le statistiche delle squadre');
+    }
+  }
+
+  Future<Map<String, dynamic>> getNBAGameResults() async {
+    final response = await http.get(
+      Uri.parse('$apiUrl/games'),
+      headers: {
+        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+        'X-RapidAPI-Key': apiKey,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception(
+          'Errore durante la richiesta API per i risultati delle partite');
     }
   }
 
