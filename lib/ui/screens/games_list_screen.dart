@@ -3,37 +3,48 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/ga
 import 'package:provider/provider.dart';
 
 class GamesListScreen extends StatelessWidget {
-  const GamesListScreen({super.key});
+  // ignore: use_key_in_widget_constructors
+  const GamesListScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    final gamesViewModel = Provider.of<GamesViewModel>(context);
+    final gamesViewModel = Provider.of<GamesViewModel>(context, listen: false);
+
+    // Definisci la data desiderata (2022-02-12)
+    final desiredDate = DateTime(2022, 2, 12);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Risultati delle Partite'),
+        title: const Text('Risultati delle Partite NBA'),
       ),
-      body: _buildBody(context, gamesViewModel),
-    );
-  }
+      body: FutureBuilder<void>(
+        future: gamesViewModel.fetchGames(desiredDate),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Errore: ${snapshot.error}'));
+          } else {
+            final games = gamesViewModel.games;
 
-  Widget _buildBody(BuildContext context, GamesViewModel viewModel) {
-    if (viewModel.isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (viewModel.gameResults == null || viewModel.gameResults!.isEmpty) {
-      return const Center(child: Text('Nessun risultato disponibile.'));
-    } else {
-      return ListView.builder(
-        itemCount: viewModel.gameResults!.length,
-        itemBuilder: (context, index) {
-          final gameResult = viewModel.gameResults![index];
-          // Puoi personalizzare il modo in cui mostri i risultati delle partite
-          return ListTile(
-            title: Text(gameResult['homeTeam'] ?? 'N/A'),
-            subtitle: Text('${gameResult['homeScore']} - ${gameResult['visitorScore']}'),
-          );
+            return ListView.builder(
+              itemCount: games.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    'Partita #${games[index].id}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    'Data: ${games[index].date.start}',
+                  ),
+                  onTap: () {},
+                );
+              },
+            );
+          }
         },
-      );
-    }
+      ),
+    );
   }
 }

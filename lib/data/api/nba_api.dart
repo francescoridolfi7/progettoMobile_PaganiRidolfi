@@ -16,7 +16,6 @@ class NbaApi {
 
   Future<Map<String, dynamic>> getNBATeamList() async {
     final cachedData = await _getLocalCache('teamList');
-    print('Team List Response cachedData: $cachedData');
     if (cachedData != null) {
       return cachedData;
     }
@@ -31,7 +30,6 @@ class NbaApi {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
-      print('Team List Response data: $data');
       _saveLocalCache('teamList', data);
       return data;
     } else {
@@ -40,7 +38,7 @@ class NbaApi {
   }
 
   Future<Map<String, dynamic>> getNBATeamDetails(int teamId) async {
-    final cachedData = await _getLocalCache('teamDetails_$teamId');
+    final cachedData = await _getLocalCache('teamDetails$teamId');
     if (cachedData != null) {
       return cachedData;
     }
@@ -55,7 +53,7 @@ class NbaApi {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
-      _saveLocalCache('teamDetails_$teamId', data);
+      _saveLocalCache('teamDetails$teamId', data);
       return data;
     } else {
       throw Exception(
@@ -63,39 +61,75 @@ class NbaApi {
     }
   }
 
-  Future<Map<String, dynamic>> getNBATeamStandings() async {
-    final response = await http.get(
-      Uri.parse('$apiUrl/standings'),
-      headers: {
-        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
-        'X-RapidAPI-Key': apiKey,
-      },
-    );
+  Future<Map<String, dynamic>> getNBAStandings() async {
+    final cachedData = await _getLocalCache('standings_standard_2021');
+    if (cachedData != null) {
+      return cachedData;
+    }
+
+    final Map<String, String> headers = {
+      'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+      'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+    };
+
+    final Map<String, String> params = {
+      'league': 'standard',
+      'season': '2021',
+    };
+
+    final Uri uri =
+        Uri.parse('$apiUrl/standings').replace(queryParameters: params);
+
+    final http.Response response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
+      _saveLocalCache('standings_standard_2021', data);
       return data;
     } else {
       throw Exception(
-          'Errore durante la richiesta API per le statistiche delle squadre');
+          'Errore nella richiesta HTTP. Codice di stato: ${response.statusCode}');
     }
   }
 
-  Future<Map<String, dynamic>> getNBAGameResults() async {
-    final response = await http.get(
-      Uri.parse('$apiUrl/games'),
-      headers: {
-        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
-        'X-RapidAPI-Key': apiKey,
-      },
-    );
+  Future<Map<String, dynamic>> getNBAGames() async {
+    final cachedData = await _getLocalCache('games');
+    if (cachedData != null) {
+      return cachedData;
+    }
+
+    final Map<String, String> headers = {
+      'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+      'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+    };
+
+    final Map<String, String> params = {
+      'date': '2022-02-12',
+    };
+
+    final Uri uri = Uri.parse("$apiUrl/games").replace(queryParameters: params);
+
+    final http.Response response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      return data;
+      final contentType = response.headers['content-type']?.toLowerCase() ?? '';
+      if (contentType.contains('application/json')) {
+        final dynamic responseData = json.decode(response.body);
+
+        if (responseData is Map<String, dynamic>) {
+          // Puoi trattare 'responseData' come un oggetto mappato
+          _saveLocalCache('games', responseData);
+          return responseData;
+        } else {
+          throw Exception('La risposta non è un oggetto JSON valido');
+        }
+      } else {
+        throw Exception(
+            'La risposta non è di tipo JSON. Tipo di contenuto: $contentType');
+      }
     } else {
       throw Exception(
-          'Errore durante la richiesta API per i risultati delle partite');
+          'Errore nella richiesta HTTP. Codice di stato: ${response.statusCode}');
     }
   }
 
