@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/games_list_screen.dart';
-import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/standing_list_screen.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/standings_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';

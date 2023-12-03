@@ -1,30 +1,28 @@
+// ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
 
 class StandingsViewModel extends ChangeNotifier {
-  final NbaApi _nbaApi;
+  final NbaApi nbaApi;
 
-  StandingsViewModel(this._nbaApi);
+  StandingsViewModel(this.nbaApi);
 
-  List<dynamic>? _standings;
-  List<dynamic>? get standings => _standings;
+  List<NbaStandings> _standings = [];
+  List<NbaStandings> get standings => _standings;
 
-  bool _isLoading = true;
-  bool get isLoading => _isLoading;
-
-  Future<void> fetchStandings() async {
-    _isLoading = true;
-    notifyListeners();
-
+  Future<void> fetchStandings(String league, int season) async {
     try {
-      final standingsData = await _nbaApi.getNBATeamStandings();
-      _standings = standingsData['response'] as List<dynamic>?;
+      final standingsData = await nbaApi.getNBAStandings();
+      print("Classifica squadre:$standingsData");
+      final standingsList = (standingsData['response'] as List<dynamic>)
+          .map((standingsJson) => NbaStandings.fromJson(standingsJson))
+          .toList();
 
-      _isLoading = false;
+      _standings = standingsList;
       notifyListeners();
     } catch (e) {
-      _isLoading = false;
-      notifyListeners();
+      print('Errore durante il recupero delle statistiche: $e');
     }
   }
 }
