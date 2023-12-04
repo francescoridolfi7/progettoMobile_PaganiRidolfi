@@ -14,9 +14,8 @@ class StandingsListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title:  const Text('Classifica NBA',
-        style:  TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromARGB(255, 29 ,66 ,138), 
+        title: const Text('Classifica NBA', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: FutureBuilder<void>(
         future: standingsViewModel.fetchStandings('standard', 2021),
@@ -51,45 +50,48 @@ class StandingsListScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    DataTable(
-                      columns: const [
-                        DataColumn(label: Text('Team')),
-                        DataColumn(label: Text('Division')),
-                        DataColumn(label: Text('Wins')),
-                        DataColumn(label: Text('Losses')),
-                        DataColumn(label: Text('Win Percentage')),
-                        DataColumn(label: Text('Games Behind')),
-                        DataColumn(label: Text('Streak')),
-                        DataColumn(label: Text('Last Ten')),
-                      ],
-                      rows: conferenceStandings.map((team) {
-                        return DataRow(
-                          cells: [
-                            DataCell(
-                              Row(
-                                children: [
-                                  Image.network(
-                                    team.team.logo,
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(team.team.name),
-                                ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: DataTable(
+                        columns: const [
+                          DataColumn(label: Text('Team')),
+                          DataColumn(label: Text('Division')),
+                          DataColumn(label: Text('Wins')),
+                          DataColumn(label: Text('Losses')),
+                          DataColumn(label: Text('Win Percentage')),
+                          DataColumn(label: Text('Games Behind')),
+                          DataColumn(label: Text('Streak')),
+                          DataColumn(label: Text('Last Ten')),
+                        ],
+                        rows: conferenceStandings.map((team) {
+                          return DataRow(
+                            cells: [
+                              DataCell(
+                                Row(
+                                  children: [
+                                    Image.network(
+                                      team.team.logo,
+                                      width: 30,
+                                      height: 30,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(team.team.name),
+                                  ],
+                                ),
                               ),
-                            ),
-                            DataCell(Text(team.division.name)),
-                            DataCell(Text('${team.win.total}')),
-                            DataCell(Text('${team.loss.total}')),
-                            DataCell(Text(team.win.percentage)),
-                            DataCell(Text(team.gamesBehind)),
-                            DataCell(Text(
-                                '${team.winStreak ? 'W' : 'L'}${team.streak}')),
-                            DataCell(Text(
-                                '${team.win.lastTen}-${team.loss.lastTen}')),
-                          ],
-                        );
-                      }).toList(),
+                              DataCell(Text(team.division.name)),
+                              DataCell(Text('${team.win.total}')),
+                              DataCell(Text('${team.loss.total}')),
+                              DataCell(Text(team.win.percentage)),
+                              DataCell(Text(team.gamesBehind)),
+                              DataCell(Text(
+                                  '${team.winStreak ? 'W' : 'L'}${team.streak}')),
+                              DataCell(Text(
+                                  '${team.win.lastTen}-${team.loss.lastTen}')),
+                            ],
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ],
                 );
