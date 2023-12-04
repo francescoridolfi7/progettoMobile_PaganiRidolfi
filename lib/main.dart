@@ -15,6 +15,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const MyApp({Key? key});
 
   @override
@@ -60,20 +61,21 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const HomeScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Squadre NBA',
+        title:  const Text('Squadre NBA',
         style:  TextStyle(color: Colors.white)),
-        backgroundColor: Color.fromARGB(255, 29 ,66 ,138), 
+        backgroundColor: const Color.fromARGB(255, 29 ,66 ,138), 
       ),
       drawer: Drawer(
         child: ListView(
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 29 ,66 ,138), 
               ),
@@ -86,13 +88,13 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Team List'),
+              title: const Text('Team List'),
               onTap: () {
                 Navigator.pushNamed(context, '/');
               },
             ),
             ListTile(
-              title: Text('Standings'),
+              title: const Text('Standings'),
               onTap: () {
                 Navigator.pushNamed(context, '/standings');
               },

@@ -5,11 +5,10 @@ class NbaGame {
   final NbaGameDate date;
   final int stage;
   final NbaGameStatus status;
-  final List<int> periods;
+  final NbaGamePeriods periods;
   final NbaGameArena arena;
   final NbaGameTeams teams;
   final NbaGameScores scores;
-  final List<String> officials;
   final int timesTied;
   final int leadChanges;
   final dynamic nugget;
@@ -25,7 +24,6 @@ class NbaGame {
     required this.arena,
     required this.teams,
     required this.scores,
-    required this.officials,
     required this.timesTied,
     required this.leadChanges,
     required this.nugget,
@@ -39,16 +37,10 @@ class NbaGame {
       date: NbaGameDate.fromJson(json['date'] ?? {}),
       stage: json['stage'] ?? 0,
       status: NbaGameStatus.fromJson(json['status'] ?? {}),
-      periods:
-          (json['periods'] as List<dynamic>?)?.map((e) => e as int).toList() ??
-              [],
+      periods:NbaGamePeriods.fromJson(json['periods'] ?? {}),
       arena: NbaGameArena.fromJson(json['arena'] ?? {}),
       teams: NbaGameTeams.fromJson(json['teams'] ?? {}),
       scores: NbaGameScores.fromJson(json['scores'] ?? {}),
-      officials: (json['officials'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
       timesTied: json['timesTied'] ?? 0,
       leadChanges: json['leadChanges'] ?? 0,
       nugget: json['nugget'],
@@ -81,18 +73,12 @@ class NbaGameStatus {
   final bool halftime;
   final int short;
   final String long;
-  final int current;
-  final int total;
-  final bool endOfPeriod;
 
   NbaGameStatus({
     required this.clock,
     required this.halftime,
     required this.short,
     required this.long,
-    required this.current,
-    required this.total,
-    required this.endOfPeriod,
   });
 
   factory NbaGameStatus.fromJson(Map<String, dynamic> json) {
@@ -101,6 +87,23 @@ class NbaGameStatus {
       halftime: json['halftime'] ?? false,
       short: json['short'] ?? 0,
       long: json['long'] ?? '',
+    );
+  }
+}
+
+class NbaGamePeriods {
+  final int current;
+  final int total;
+  final bool endOfPeriod;
+
+  NbaGamePeriods({
+    required this.current,
+    required this.total,
+    required this.endOfPeriod,
+  });
+
+  factory NbaGamePeriods.fromJson(Map<String, dynamic> json) {
+    return NbaGamePeriods(
       current: json['current'] ?? 0,
       total: json['total'] ?? 0,
       endOfPeriod: json['endOfPeriod'] ?? false,
@@ -191,6 +194,9 @@ class NbaGameScores {
   }
 }
 
+class NbaGameofficials{
+
+}
 class NbaGameTeamScore {
   final int win;
   final int loss;
