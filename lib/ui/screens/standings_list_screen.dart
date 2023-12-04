@@ -13,7 +13,8 @@ class StandingsListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Classifica NBA'),
+        title:  Text('Classifica NBA',
+        style:  TextStyle(color: Colors.white)),
         backgroundColor: Color.fromARGB(255, 29 ,66 ,138), 
       ),
       body: FutureBuilder<void>(
