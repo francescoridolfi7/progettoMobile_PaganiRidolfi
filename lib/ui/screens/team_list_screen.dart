@@ -24,18 +24,22 @@ class TeamListScreen extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text('Errore: ${snapshot.error}'));
           } else {
-            final teams = snapshot.data ?? [];
+            final List<NbaTeam> allTeams = snapshot.data ?? [];
+            final List<NbaTeam> nbaTeams = allTeams
+                .where((team) => team.logo.isNotEmpty) // Filtra solo le squadre con logo (presumibilmente squadre NBA)
+                .toList();
+
             return ListView.builder(
-              itemCount: teams.length,
+              itemCount: nbaTeams.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(teams[index].name),
+                  title: Text(nbaTeams[index].name),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            TeamDetailsScreen(team: teams[index]),
+                            TeamDetailsScreen(team: nbaTeams[index]),
                       ),
                     );
                   },
