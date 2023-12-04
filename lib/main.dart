@@ -99,6 +99,12 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/standings');
               },
             ),
+            ListTile(
+              title: const Text('Games'),
+              onTap: () {
+                Navigator.pushNamed(context, '/games');
+              },
+            )
           ],
         ),
       ),
