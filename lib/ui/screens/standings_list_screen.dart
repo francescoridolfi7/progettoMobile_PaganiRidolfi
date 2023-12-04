@@ -4,7 +4,6 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 import 'package:provider/provider.dart';
 
 class StandingsListScreen extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const StandingsListScreen({Key? key});
 
   @override
@@ -15,6 +14,7 @@ class StandingsListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Classifica NBA'),
+        backgroundColor: Color.fromARGB(255, 29 ,66 ,138), 
       ),
       body: FutureBuilder<void>(
         future: standingsViewModel.fetchStandings('standard', 2021),

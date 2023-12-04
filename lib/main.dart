@@ -5,9 +5,9 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/gam
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/standings_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_list_screen.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/games_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
-import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/games_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,7 +15,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'NBA Teams',
+        title: 'Squadre NBA',
         initialRoute: '/',
         routes: {
-          '/': (context) => const TeamListScreen(),
+          '/': (context) => const HomeScreen(),
           '/standings': (context) => const StandingsListScreen(),
           '/games': (context) => const GamesListScreen(),
         },
@@ -55,6 +55,51 @@ class MyApp extends StatelessWidget {
           return null;
         },
       ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Squadre NBA'),
+        backgroundColor: const Color.fromARGB(255, 29 ,66 ,138), 
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 29 ,66 ,138), 
+              ),
+              child: Text(
+                'NBA App',
+                style: TextStyle(
+                  color: Colors.white, 
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Team List'),
+              onTap: () {
+                Navigator.pushNamed(context, '/');
+              },
+            ),
+            ListTile(
+              title: Text('Standings'),
+              onTap: () {
+                Navigator.pushNamed(context, '/standings');
+              },
+            ),
+          ],
+        ),
+      ),
+      body: const TeamListScreen(),
     );
   }
 }
