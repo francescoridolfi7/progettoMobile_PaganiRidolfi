@@ -26,7 +26,7 @@ class TeamListScreen extends StatelessWidget {
           } else {
             final List<NbaTeam> allTeams = snapshot.data ?? [];
             final List<NbaTeam> nbaTeams = allTeams
-                .where((team) => team.logo.isNotEmpty) // Filtra solo le squadre con logo (presumibilmente squadre NBA)
+                .where((team) => team.logo.isNotEmpty) 
                 .toList();
 
             return ListView.builder(
