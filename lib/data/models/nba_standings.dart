@@ -2,28 +2,6 @@ class NbaStandings {
   final String league;
   final int season;
   final StandingsTeam team;
-
-  NbaStandings({
-    required this.league,
-    required this.season,
-    required this.team,
-  });
-
-  factory NbaStandings.fromJson(Map<String, dynamic> json) {
-    return NbaStandings(
-      league: json['league'] ?? '',
-      season: json['season'] ?? 0,
-      team: StandingsTeam.fromJson(json['team'] ?? {}),
-    );
-  }
-}
-
-class StandingsTeam {
-  final int id;
-  final String name;
-  final String nickname;
-  final String code;
-  final String logo;
   final StandingsConference conference;
   final StandingsDivision division;
   final StandingsWinLoss win;
@@ -33,12 +11,10 @@ class StandingsTeam {
   final bool winStreak;
   final dynamic tieBreakerPoints;
 
-  StandingsTeam({
-    required this.id,
-    required this.name,
-    required this.nickname,
-    required this.code,
-    required this.logo,
+  NbaStandings({
+    required this.league,
+    required this.season,
+    required this.team,
     required this.conference,
     required this.division,
     required this.win,
@@ -49,13 +25,11 @@ class StandingsTeam {
     required this.tieBreakerPoints,
   });
 
-  factory StandingsTeam.fromJson(Map<String, dynamic> json) {
-    return StandingsTeam(
-      id: json['id'] ?? 0,
-      name: json['name'] ?? '',
-      nickname: json['nickname'] ?? '',
-      code: json['code'] ?? '',
-      logo: json['logo'] ?? '',
+  factory NbaStandings.fromJson(Map<String, dynamic> json) {
+    return NbaStandings(
+      league: json['league'] ?? '',
+      season: json['season'] ?? 0,
+      team: StandingsTeam.fromJson(json['team'] ?? {}),
       conference: StandingsConference.fromJson(json['conference'] ?? {}),
       division: StandingsDivision.fromJson(json['division'] ?? {}),
       win: StandingsWinLoss.fromJson(json['win'] ?? {}),
@@ -68,19 +42,51 @@ class StandingsTeam {
   }
 }
 
+class StandingsTeam {
+  final int id;
+  final String name;
+  final String nickname;
+  final String code;
+  final String logo;
+
+  StandingsTeam({
+    required this.id,
+    required this.name,
+    required this.nickname,
+    required this.code,
+    required this.logo,
+  });
+
+  factory StandingsTeam.fromJson(Map<String, dynamic> json) {
+    return StandingsTeam(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      nickname: json['nickname'] ?? '',
+      code: json['code'] ?? '',
+      logo: json['logo'] ?? '',
+    );
+  }
+}
+
 class StandingsConference {
   final String name;
   final int rank;
+  final int win;
+  final int loss;
 
   StandingsConference({
     required this.name,
     required this.rank,
+    required this.win,
+    required this.loss,
   });
 
   factory StandingsConference.fromJson(Map<String, dynamic> json) {
     return StandingsConference(
       name: json['name'] ?? '',
       rank: json['rank'] ?? 0,
+      win: json['win'] ?? 0,
+      loss: json['loss'] ?? 0,
     );
   }
 }
@@ -88,16 +94,25 @@ class StandingsConference {
 class StandingsDivision {
   final String name;
   final int rank;
+  final int win;
+  final int loss;
+   final String gamesBehind;
 
   StandingsDivision({
     required this.name,
     required this.rank,
+    required this.win,
+    required this.loss,
+    required this.gamesBehind,
   });
 
   factory StandingsDivision.fromJson(Map<String, dynamic> json) {
     return StandingsDivision(
       name: json['name'] ?? '',
       rank: json['rank'] ?? 0,
+      win: json['win'] ?? 0,
+      loss: json['loss'] ?? 0,
+      gamesBehind: json['gamesBehind'] ?? '',
     );
   }
 }
