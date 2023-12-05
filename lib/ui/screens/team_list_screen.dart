@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 
 class TeamListScreen extends StatelessWidget {
-  const TeamListScreen({super.key});
+  const TeamListScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,9 +13,6 @@ class TeamListScreen extends StatelessWidget {
         Provider.of<TeamListViewModel>(context, listen: false);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Elenco Squadre NBA'),
-      ),
       body: FutureBuilder<List<NbaTeam>>(
         future: teamListViewModel.getTeams(context),
         builder: (context, snapshot) {
@@ -26,7 +23,7 @@ class TeamListScreen extends StatelessWidget {
           } else {
             final List<NbaTeam> allTeams = snapshot.data ?? [];
             final List<NbaTeam> nbaTeams = allTeams
-                .where((team) => team.logo.isNotEmpty) 
+                .where((team) => team.logo.isNotEmpty && team.nbaFranchise)
                 .toList();
 
             return ListView.builder(

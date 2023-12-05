@@ -8,7 +8,8 @@ class GameDetailsScreen extends StatelessWidget {
   final List<String> homeLineScore;
   final int homePoints;
 
-  const GameDetailsScreen({super.key, 
+  const GameDetailsScreen({
+    super.key,
     required this.visitorsLogo,
     required this.visitorsLineScore,
     required this.visitorsPoints,
@@ -21,7 +22,9 @@ class GameDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dettagli della Partita'),
+        title: const Text('Dettagli della partita',
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

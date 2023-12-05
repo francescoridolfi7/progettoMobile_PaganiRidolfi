@@ -10,7 +10,9 @@ class TeamDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dettagli Squadra'), // Aggiunto const qui
+        title: const Text('Dettagli Squadra',
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
