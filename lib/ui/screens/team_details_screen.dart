@@ -25,23 +25,6 @@ class TeamDetailsScreen extends StatelessWidget {
             Text('Conferenza: ${team.leagues.standard.conference}'),
             Text('Divisione: ${team.leagues.standard.division}'),
             const SizedBox(height: 16), // Aggiunto const qui
-            const Text('Statistiche della squadra:'), // Aggiunto const qui
-            DataTable(
-              columns: const [
-                DataColumn(label: Text('Statistica')),
-                DataColumn(label: Text('Valore')),
-              ],
-              rows: const [
-                DataRow(cells: [
-                  DataCell(Text('Punteggio medio per partita')),
-                  DataCell(Text('25.4')),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('Rimbalzi medi per partita')),
-                  DataCell(Text('45.7')),
-                ]),
-              ],
-            ),
           ],
         ),
       ),
