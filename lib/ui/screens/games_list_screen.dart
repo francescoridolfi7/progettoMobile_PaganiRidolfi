@@ -16,7 +16,9 @@ class GamesListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Risultati delle Partite NBA'),
+        title: const Text('Risultati delle partite NBA',
+            style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: FutureBuilder<void>(
         future: gamesViewModel.fetchGames(desiredDate),
@@ -44,9 +46,11 @@ class GamesListScreen extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Image.network(visitorsTeam.logo, width: 30, height: 30),
+                          Image.network(visitorsTeam.logo,
+                              width: 30, height: 30),
                           const SizedBox(width: 10),
-                          Text('${visitorsTeam.name} - ${games[index].scores.visitors.points}'),
+                          Text(
+                              '${visitorsTeam.name} - ${games[index].scores.visitors.points}'),
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -54,7 +58,8 @@ class GamesListScreen extends StatelessWidget {
                         children: [
                           Image.network(homeTeam.logo, width: 30, height: 30),
                           const SizedBox(width: 10),
-                          Text('${homeTeam.name} - ${games[index].scores.home.points}'),
+                          Text(
+                              '${homeTeam.name} - ${games[index].scores.home.points}'),
                         ],
                       ),
                       const SizedBox(height: 5),
@@ -62,21 +67,21 @@ class GamesListScreen extends StatelessWidget {
                     ],
                   ),
                   onTap: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => GameDetailsScreen(
-        visitorsLogo: visitorsTeam.logo,
-        visitorsLineScore: games[index].scores.visitors.linescore,
-        visitorsPoints: games[index].scores.visitors.points,
-        homeLogo: homeTeam.logo,
-        homeLineScore: games[index].scores.home.linescore,
-        homePoints: games[index].scores.home.points,
-      ),
-    ),
-  );
-},
-
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => GameDetailsScreen(
+                          visitorsLogo: visitorsTeam.logo,
+                          visitorsLineScore:
+                              games[index].scores.visitors.linescore,
+                          visitorsPoints: games[index].scores.visitors.points,
+                          homeLogo: homeTeam.logo,
+                          homeLineScore: games[index].scores.home.linescore,
+                          homePoints: games[index].scores.home.points,
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             );

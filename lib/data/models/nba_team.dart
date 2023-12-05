@@ -36,19 +36,18 @@ class NbaTeam {
   }
 
   factory NbaTeam.fromJson(Map<String, dynamic> json) {
-  return NbaTeam(
-    id: json['id'] ?? 0, // Puoi fornire un valore di default appropriato
-    name: json['name'] ?? "",
-    nickname: json['nickname'] ?? "",
-    code: json['code'] ?? "",
-    city: json['city'] ?? "",
-    logo: json['logo'] ?? "",
-    allStar: json['allStar'] ?? false, // Puoi fornire un valore di default appropriato
-    nbaFranchise: json['nbaFranchise'] ?? false, // Puoi fornire un valore di default appropriato
-    leagues: Leagues.fromJson(json['leagues'] ?? {}),
-  );
-}
-
+    return NbaTeam(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? "",
+      nickname: json['nickname'] ?? "",
+      code: json['code'] ?? "",
+      city: json['city'] ?? "",
+      logo: json['logo'] ?? "",
+      allStar: json['allStar'] ?? false,
+      nbaFranchise: json['nbaFranchise'] ?? false,
+      leagues: Leagues.fromJson(json['leagues'] ?? {}),
+    );
+  }
 }
 
 class Leagues {
@@ -74,14 +73,13 @@ class Leagues {
   }
 
   factory Leagues.fromJson(Map<String, dynamic> json) {
-  return Leagues(
-    standard: ConferenceDivision.fromJson(json['standard'] ?? {}),
-    vegas: ConferenceDivision.fromJson(json['vegas'] ?? {}),
-    utah: ConferenceDivision.fromJson(json['utah'] ?? {}),
-    sacramento: ConferenceDivision.fromJson(json['sacramento'] ?? {}),
-  );
-}
-
+    return Leagues(
+      standard: ConferenceDivision.fromJson(json['standard'] ?? {}),
+      vegas: ConferenceDivision.fromJson(json['vegas'] ?? {}),
+      utah: ConferenceDivision.fromJson(json['utah'] ?? {}),
+      sacramento: ConferenceDivision.fromJson(json['sacramento'] ?? {}),
+    );
+  }
 }
 
 class ConferenceDivision {
@@ -100,11 +98,10 @@ class ConferenceDivision {
     };
   }
 
- factory ConferenceDivision.fromJson(Map<String, dynamic> json) {
-  return ConferenceDivision(
-    conference: json['conference'] ?? "",
-    division: json['division'] ?? "",
-  );
-}
-
+  factory ConferenceDivision.fromJson(Map<String, dynamic> json) {
+    return ConferenceDivision(
+      conference: json['conference'] ?? "",
+      division: json['division'] ?? "",
+    );
+  }
 }

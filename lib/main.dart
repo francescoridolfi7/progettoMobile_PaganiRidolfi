@@ -68,21 +68,20 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  const Text('Squadre NBA',
-        style:  TextStyle(color: Colors.white)),
-        backgroundColor: const Color.fromARGB(255, 29 ,66 ,138), 
+        title: const Text('Squadre NBA', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       drawer: Drawer(
         child: ListView(
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 29 ,66 ,138), 
+                color: Color.fromARGB(255, 29, 66, 138),
               ),
               child: Text(
                 'NBA App',
                 style: TextStyle(
-                  color: Colors.white, 
+                  color: Colors.white,
                   fontSize: 24,
                 ),
               ),
