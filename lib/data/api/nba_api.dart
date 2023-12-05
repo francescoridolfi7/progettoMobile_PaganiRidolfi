@@ -61,7 +61,7 @@ class NbaApi {
     }
   }
 
-  Future<Map<String, dynamic>> getNBAStandings() async {
+  Future<Map<String, dynamic>> getNBAStandings(String league, int season) async {
     final cachedData = await _getLocalCache('standings_standard_2021');
     if (cachedData != null) {
       return cachedData;
@@ -74,7 +74,7 @@ class NbaApi {
 
     final Map<String, String> params = {
       'league': 'standard',
-      'season': '2021',
+      'season': 'season.toString()',
     };
 
     final Uri uri =

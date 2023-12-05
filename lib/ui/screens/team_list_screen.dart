@@ -33,6 +33,23 @@ class TeamListScreen extends StatelessWidget {
               itemCount: nbaTeams.length,
               itemBuilder: (context, index) {
                 return ListTile(
+                  leading: SizedBox(
+                    width: 40,
+                    height: 40,
+                    child: Image.network(
+                      nbaTeams[index].logo,
+                      width: 40,
+                      height: 40,
+                      errorBuilder: (context, error, stackTrace) {
+                        // Gestisci l'errore mostrando un'immagine di fallback
+                        return Image.asset(
+                          'assets/fallback_logo.png', // Sostituisci con il percorso dell'immagine di fallback nel tuo progetto
+                          width: 40,
+                          height: 40,
+                        );
+                      },
+                    ),
+                  ),
                   title: Text(nbaTeams[index].name),
                   onTap: () {
                     Navigator.push(
