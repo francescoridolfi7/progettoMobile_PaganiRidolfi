@@ -46,7 +46,7 @@ class GamesListScreen extends StatelessWidget {
                 return ListTile(
                   title: Text(
                     'Partita: ${getTeamAbbreviation(visitorsTeam.name)} vs ${getTeamAbbreviation(homeTeam.name)}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class GamesListScreen extends StatelessWidget {
                         children: [
                           Image.network(visitorsTeam.logo, width: 40, height: 40),
                           const SizedBox(width: 12),
-                          Text('${visitorsTeam.name} - ${games[index].scores.visitors.points}', style: TextStyle(fontSize: 16)),
+                          Text('${visitorsTeam.name} - ${games[index].scores.visitors.points}', style: const TextStyle(fontSize: 16)),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -63,11 +63,11 @@ class GamesListScreen extends StatelessWidget {
                         children: [
                           Image.network(homeTeam.logo, width: 40, height: 40),
                           const SizedBox(width: 12),
-                          Text('${homeTeam.name} - ${games[index].scores.home.points}', style: TextStyle(fontSize: 16)),
+                          Text('${homeTeam.name} - ${games[index].scores.home.points}', style: const TextStyle(fontSize: 16)),
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Text('Data: ${DateFormat('yyyy-MM-dd').format(games[index].date.start)}', style: TextStyle(fontSize: 14)),
+                      Text('Data: ${DateFormat('yyyy-MM-dd').format(games[index].date.start)}', style: const TextStyle(fontSize: 14)),
                     ],
                   ),
                   onTap: () {
