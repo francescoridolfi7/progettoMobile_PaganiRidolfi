@@ -15,9 +15,9 @@ class TeamDetailsViewModel extends ChangeNotifier {
     final localStorageService = LocalStorageService();
     await localStorageService.saveNbaTeamData(teams);
   }
-}
 
-Future<List<NbaTeam>> loadTeamsLocally() async {
-  final localStorageService = LocalStorageService();
-  return await localStorageService.getNbaTeamData();
+  Future<List<NbaTeam>> loadTeamsLocally() async {
+    final localStorageService = LocalStorageService();
+    return await localStorageService.getNbaTeamData();
+  }
 }
