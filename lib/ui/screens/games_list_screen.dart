@@ -11,7 +11,6 @@ class GamesListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final gamesViewModel = Provider.of<GamesViewModel>(context, listen: false);
 
-   
     final desiredDate = DateTime(2022, 2, 12);
 
     return Scaffold(
@@ -46,28 +45,28 @@ class GamesListScreen extends StatelessWidget {
                 return ListTile(
                   title: Text(
                     'Partita: ${getTeamAbbreviation(visitorsTeam.name)} vs ${getTeamAbbreviation(homeTeam.name)}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          Image.network(visitorsTeam.logo, width: 30, height: 30),
-                          const SizedBox(width: 10),
-                          Text('${visitorsTeam.name} - ${games[index].scores.visitors.points}'),
+                          Image.network(visitorsTeam.logo, width: 40, height: 40),
+                          const SizedBox(width: 12),
+                          Text('${visitorsTeam.name} - ${games[index].scores.visitors.points}', style: TextStyle(fontSize: 16)),
                         ],
                       ),
-                      const SizedBox(height: 5),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
-                          Image.network(homeTeam.logo, width: 30, height: 30),
-                          const SizedBox(width: 10),
-                          Text('${homeTeam.name} - ${games[index].scores.home.points}'),
+                          Image.network(homeTeam.logo, width: 40, height: 40),
+                          const SizedBox(width: 12),
+                          Text('${homeTeam.name} - ${games[index].scores.home.points}', style: TextStyle(fontSize: 16)),
                         ],
                       ),
-                      const SizedBox(height: 5),
-                      Text('Data: ${DateFormat('yyyy-MM-dd').format(games[index].date.start)}'),
+                      const SizedBox(height: 8),
+                      Text('Data: ${DateFormat('yyyy-MM-dd').format(games[index].date.start)}', style: TextStyle(fontSize: 14)),
                     ],
                   ),
                   onTap: () {
