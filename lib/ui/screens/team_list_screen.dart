@@ -1,5 +1,3 @@
-// ignore_for_file: use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
@@ -31,34 +29,43 @@ class TeamListScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: nbaTeams.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: Image.network(
-                      nbaTeams[index].logo,
-                      width: 40,
-                      height: 40,
-                      errorBuilder: (context, error, stackTrace) {
-                        // Gestisci l'errore mostrando un'immagine di fallback
-                        return Image.asset(
-                          'assets/fallback_logo.png', // Sostituisci con il percorso dell'immagine di fallback nel tuo progetto
-                          width: 40,
-                          height: 40,
+                return Column(
+                  children: [
+                    SizedBox(height: index == 0 ? 12 : 0), 
+                    ListTile(
+                      leading: SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: Image.network(
+                          nbaTeams[index].logo,
+                          width: 60,
+                          height: 60,
+                          errorBuilder: (context, error, stackTrace) {
+                            
+                            return Image.asset(
+                              'assets/fallback_logo.png', 
+                              width: 60,
+                              height: 60,
+                            );
+                          },
+                        ),
+                      ),
+                      title: Text(
+                        nbaTeams[index].name,
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TeamDetailsScreen(team: nbaTeams[index]),
+                          ),
                         );
                       },
                     ),
-                  ),
-                  title: Text(nbaTeams[index].name),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            TeamDetailsScreen(team: nbaTeams[index]),
-                      ),
-                    );
-                  },
+                    const SizedBox(height: 12), 
+                  ],
                 );
               },
             );

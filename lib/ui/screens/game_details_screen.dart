@@ -9,49 +9,48 @@ class GameDetailsScreen extends StatelessWidget {
   final int homePoints;
 
   const GameDetailsScreen({
-    super.key,
+    Key? key,
     required this.visitorsLogo,
     required this.visitorsLineScore,
     required this.visitorsPoints,
     required this.homeLogo,
     required this.homeLineScore,
     required this.homePoints,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dettagli della partita',
-            style: TextStyle(color: Colors.white)),
+        title: const Text('Dettagli della partita', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            buildTableRow(visitorsLogo, visitorsLineScore, visitorsPoints),
-            buildTableRow(homeLogo, homeLineScore, homePoints),
+        child: DataTable(
+          columns: [
+            DataColumn(label: Text('')),
+            DataColumn(label: Text('Q1')),
+            DataColumn(label: Text('Q2')),
+            DataColumn(label: Text('Q3')),
+            DataColumn(label: Text('Q4')),
+            DataColumn(label: Text('Total', style: TextStyle(fontWeight: FontWeight.bold))),
+          ],
+          rows: [
+            buildDataRow(visitorsLogo, visitorsLineScore, visitorsPoints),
+            buildDataRow(homeLogo, homeLineScore, homePoints),
           ],
         ),
       ),
     );
   }
 
-  Widget buildTableRow(String teamLogo, List<String> lineScore, int points) {
-    return Row(
-      children: [
-        Image.network(teamLogo, width: 30, height: 30),
-        const SizedBox(width: 10),
-        for (String score in lineScore)
-          Expanded(
-            child: Center(
-              child: Text(score),
-            ),
-          ),
-        const SizedBox(width: 10),
-        Text('$points'),
+  DataRow buildDataRow(String teamLogo, List<String> lineScore, int points) {
+    return DataRow(
+      cells: [
+        DataCell(Image.network(teamLogo, width: 30, height: 30)),
+        for (String score in lineScore) DataCell(Center(child: Text(score))),
+        DataCell(Text('$points')),
       ],
     );
   }
