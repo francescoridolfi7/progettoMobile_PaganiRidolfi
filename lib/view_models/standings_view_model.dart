@@ -14,7 +14,7 @@ class StandingsViewModel extends ChangeNotifier {
   Future<void> fetchStandings(String league, int season) async {
     print("Fetching standings for season: $season");
     try {
-      final standingsData = await nbaApi.getNBAStandings(league, season);
+      final standingsData = await nbaApi.getNBAStandings();
       print("Classifica squadre:$standingsData");
       final standingsList = (standingsData['response'] as List<dynamic>)
           .map((standingsJson) => NbaStandings.fromJson(standingsJson))

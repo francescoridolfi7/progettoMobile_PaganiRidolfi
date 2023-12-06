@@ -61,7 +61,7 @@ class NbaApi {
     }
   }
 
-  Future<Map<String, dynamic>> getNBAStandings(String league, int season) async {
+  Future<Map<String, dynamic>> getNBAStandings() async {
     final cachedData = await _getLocalCache('standings_standard_2021');
     if (cachedData != null) {
       return cachedData;
@@ -74,7 +74,7 @@ class NbaApi {
 
     final Map<String, String> params = {
       'league': 'standard',
-      'season': 'season.toString()',
+      'season': '2021',
     };
 
     final Uri uri =
@@ -93,7 +93,7 @@ class NbaApi {
   }
 
   Future<Map<String, dynamic>> getNBAGames() async {
-    final cachedData = await _getLocalCache('games');
+    final cachedData = await _getLocalCache('nbagames');
     if (cachedData != null) {
       return cachedData;
     }
@@ -107,26 +107,15 @@ class NbaApi {
       'date': '2022-02-12',
     };
 
-    final Uri uri = Uri.parse("$apiUrl/games").replace(queryParameters: params);
+    final Uri uri =
+        Uri.parse('$apiUrl/games').replace(queryParameters: params);
 
     final http.Response response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
-      final contentType = response.headers['content-type']?.toLowerCase() ?? '';
-      if (contentType.contains('application/json')) {
-        final dynamic responseData = json.decode(response.body);
-
-        if (responseData is Map<String, dynamic>) {
-          // Puoi trattare 'responseData' come un oggetto mappato
-          _saveLocalCache('games', responseData);
-          return responseData;
-        } else {
-          throw Exception('La risposta non è un oggetto JSON valido');
-        }
-      } else {
-        throw Exception(
-            'La risposta non è di tipo JSON. Tipo di contenuto: $contentType');
-      }
+      final Map<String, dynamic> data = json.decode(response.body);
+      _saveLocalCache('games', data);
+      return data;
     } else {
       throw Exception(
           'Errore nella richiesta HTTP. Codice di stato: ${response.statusCode}');
