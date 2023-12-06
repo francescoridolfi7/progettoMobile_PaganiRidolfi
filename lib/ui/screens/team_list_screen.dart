@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 
 class TeamListScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const TeamListScreen({Key? key});
 
   @override
@@ -52,7 +53,7 @@ class TeamListScreen extends StatelessWidget {
                       ),
                       title: Text(
                         nbaTeams[index].name,
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       onTap: () {
                         Navigator.push(

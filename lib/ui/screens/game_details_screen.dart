@@ -9,14 +9,14 @@ class GameDetailsScreen extends StatelessWidget {
   final int homePoints;
 
   const GameDetailsScreen({
-    Key? key,
+    super.key,
     required this.visitorsLogo,
     required this.visitorsLineScore,
     required this.visitorsPoints,
     required this.homeLogo,
     required this.homeLineScore,
     required this.homePoints,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class GameDetailsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: DataTable(
-          columns: [
+          columns: const [
             DataColumn(label: Text('')),
             DataColumn(label: Text('Q1')),
             DataColumn(label: Text('Q2')),

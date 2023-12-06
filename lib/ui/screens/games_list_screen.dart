@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class GamesListScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const GamesListScreen({Key? key});
 
   @override
@@ -39,7 +40,7 @@ class GamesListScreen extends StatelessWidget {
                 String getTeamAbbreviation(String teamName) {
                   final words = teamName.split(' ');
                   return words.length >= 2
-                      ? '${words[0].substring(0, 3).toUpperCase()}'
+                      ? words[0].substring(0, 3).toUpperCase()
                       : teamName;
                 }
 
