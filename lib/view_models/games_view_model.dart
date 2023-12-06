@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_games.dart';
@@ -6,14 +7,14 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 class GamesViewModel extends ChangeNotifier {
   final NbaApi nbaApi;
 
-    GamesViewModel(this.nbaApi);
+  GamesViewModel(this.nbaApi);
 
   List<NbaGame> _games = [];
   List<NbaGame> get games => _games;
 
-  Future<void> fetchGames(DateTime date) async {
+  Future<void> fetchGames(String date) async {
     try {
-      final gamesData = await nbaApi.getNBAGames();
+      final gamesData = await nbaApi.getNBAGames(date);
       print("Risultati squadre:$gamesData");
       final gamesList = (gamesData['response'] as List<dynamic>)
           .map((gamesJson) => NbaGame.fromJson(gamesJson))

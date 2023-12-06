@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const HomeScreen(),
           '/standings': (context) => const StandingsListScreen(),
-          '/games': (context) => const GamesListScreen(),
+          '/games': (context) => GamesListScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/teamDetails') {
