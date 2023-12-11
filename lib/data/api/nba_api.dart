@@ -98,35 +98,33 @@ class NbaApi {
 }
 
 
-  Future<Map<String, dynamic>> getNBARoster(int teamId) async {
-    final cachedData = await _getLocalCache('roster_2021$teamId');
-    if (cachedData != null) {
-      return cachedData;
-    }
+ Future<Map<String, dynamic>> getNBARoster(int teamId) async {
+  final Map<String, String> headers = {
+    'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+    'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+  };
 
-    final Map<String, String> headers = {
-      'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
-      'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
-    };
+  final Map<String, String> params = {
+    'season': '2021',
+  };
 
-    final Map<String, String> params = {
-      'season': '2021',
-    };
+  final Uri uri = Uri.parse('$apiUrl/players/$teamId').replace(queryParameters: params);
 
-    final Uri uri =
-        Uri.parse('$apiUrl/players/$teamId').replace(queryParameters: params);
+  print('URL della richiesta: $uri');  // Aggiunto questo print per visualizzare l'URL
 
-    final http.Response response = await http.get(uri, headers: headers);
+  final http.Response response = await http.get(uri, headers: headers);
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      _saveLocalCache('roster_2021', data);
-      return data;
-    } else {
-      throw Exception(
-          'Errore nella richiesta HTTP. Codice di stato: ${response.statusCode}');
-    }
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> data = json.decode(response.body);
+    _saveLocalCache('roster_2021$teamId', data);  // Aggiunto teamId al nome della cache
+    return data;
+  } else {
+    throw Exception(
+      'Errore nella richiesta HTTP. Codice di stato: ${response.statusCode}',
+    );
   }
+}
+
 
   static Future<Map<String, dynamic>> _fetchAndSaveData(
       Map<String, dynamic> args) async {

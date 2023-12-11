@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/games_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/standings_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/games_view_model.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +17,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,10 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               GamesViewModel(Provider.of<NbaApi>(context, listen: false)),
         ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              RosterViewModel(Provider.of<NbaApi>(context, listen: false)),
+        ),
       ],
       child: MaterialApp(
         title: 'Squadre NBA',
@@ -48,9 +53,13 @@ class MyApp extends StatelessWidget {
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/teamDetails') {
-            final team = settings.arguments as NbaTeam;
+            final Map<String, dynamic> arguments =
+                settings.arguments as Map<String, dynamic>;
+            final NbaTeam team = arguments['team'];
+            final List<NbaPlayer> roster = arguments['roster'];
+
             return MaterialPageRoute(
-              builder: (context) => TeamDetailsScreen(team: team),
+              builder: (context) => TeamDetailsScreen(team: team, roster: roster),
             );
           }
           return null;
@@ -61,8 +70,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const HomeScreen({Key? key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

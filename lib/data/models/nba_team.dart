@@ -1,3 +1,5 @@
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
+
 class NbaTeam {
   final int id;
   final String name;
@@ -8,6 +10,7 @@ class NbaTeam {
   final bool allStar;
   final bool nbaFranchise;
   final Leagues leagues;
+  final List<NbaPlayer> roster; // Aggiunto campo per il roster dei giocatori
 
   NbaTeam({
     required this.id,
@@ -19,6 +22,7 @@ class NbaTeam {
     required this.allStar,
     required this.nbaFranchise,
     required this.leagues,
+    required this.roster, // Aggiunto campo per il roster dei giocatori
   });
 
   Map<String, dynamic> toJson() {
@@ -32,10 +36,14 @@ class NbaTeam {
       'allStar': allStar,
       'nbaFranchise': nbaFranchise,
       'leagues': leagues.toJson(),
+      'roster': roster.map((player) => player.toJson()).toList(), // Serializzazione del roster
     };
   }
 
   factory NbaTeam.fromJson(Map<String, dynamic> json) {
+    final List<dynamic> rosterData = json['roster'] ?? [];
+    final List<NbaPlayer> roster = rosterData.map((playerData) => NbaPlayer.fromJson(playerData)).toList();
+
     return NbaTeam(
       id: json['id'] ?? 0,
       name: json['name'] ?? "",
@@ -46,9 +54,11 @@ class NbaTeam {
       allStar: json['allStar'] ?? false,
       nbaFranchise: json['nbaFranchise'] ?? false,
       leagues: Leagues.fromJson(json['leagues'] ?? {}),
+      roster: roster,
     );
   }
 }
+
 
 class Leagues {
   final ConferenceDivision standard;
