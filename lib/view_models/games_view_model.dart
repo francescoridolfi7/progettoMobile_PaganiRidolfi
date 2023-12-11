@@ -15,13 +15,18 @@ class GamesViewModel extends ChangeNotifier {
   Future<void> fetchGames(String date) async {
     try {
       final gamesData = await nbaApi.getNBAGames(date);
-      print("Risultati squadre:$gamesData");
-      final gamesList = (gamesData['response'] as List<dynamic>)
-          .map((gamesJson) => NbaGame.fromJson(gamesJson))
-          .toList();
+      print("Risultati squadre: $gamesData");
 
-      _games = gamesList;
-      notifyListeners();
+      final responseList = gamesData['response'] as List<dynamic>?;
+
+      if (responseList != null) {
+        final gamesList = responseList
+            .map((gamesJson) => NbaGame.fromJson(gamesJson))
+            .toList();
+
+        _games = gamesList;
+        notifyListeners();
+      }
     } catch (e) {
       print('Errore durante il recupero dei risultati: $e');
     }

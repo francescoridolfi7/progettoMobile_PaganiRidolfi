@@ -4,11 +4,17 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/ga
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class GamesListScreen extends StatelessWidget {
+class GamesListScreen extends StatefulWidget {
+  const GamesListScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _GamesListScreenState createState() => _GamesListScreenState();
+}
+
+class _GamesListScreenState extends State<GamesListScreen> {
   final TextEditingController _dateController =
       TextEditingController(text: '2022-02-12');
-
-  GamesListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +47,8 @@ class GamesListScreen extends StatelessWidget {
                     if (pickedDate != null) {
                       _dateController.text =
                           DateFormat('yyyy-MM-dd').format(pickedDate);
-                      // Aggiorna la UI con le nuove partite dopo che la data è stata selezionata
                       await gamesViewModel.fetchGames(_dateController.text);
+                      setState(() {});
                     }
                   },
                 ),
