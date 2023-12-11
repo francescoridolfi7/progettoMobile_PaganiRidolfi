@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
 
-class TeamDetailsScreen extends StatelessWidget {
-  final NbaTeam team;
+class TeamDetailsStandingsScreen extends StatelessWidget {
+  final NbaStandings standings;
 
-  const TeamDetailsScreen({super.key, required this.team});
+  const TeamDetailsStandingsScreen({super.key, required this.standings});
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +18,14 @@ class TeamDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Nome completo: ${team.name}'),
-            Text('Abbreviazione: ${team.nickname}'),
-            Text('Città: ${team.city}'),
-            Text('Conferenza: ${team.leagues.standard.conference}'),
-            Text('Divisione: ${team.leagues.standard.division}'),
+            Text('Nome completo: ${standings.team.name}'),
+            Text('Abbreviazione: ${standings.team.nickname}'),
+            Text('Conferenza: ${standings.conference.name}'),
+            Text('Divisione: ${standings.division.name}'),
             const SizedBox(height: 16),
            
             Image.network(
-              team.logo,
+              standings.team.logo,
               width: 100, 
               height: 100,
               fit: BoxFit.contain,

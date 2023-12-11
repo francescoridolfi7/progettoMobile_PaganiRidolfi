@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_standings_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
 import 'package:provider/provider.dart';
@@ -22,8 +23,7 @@ class _StandingsListScreenState extends State<StandingsListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Classifica NBA', style: TextStyle(color: Colors.white)),
+        title: const Text('Classifica NBA', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Column(
@@ -50,8 +50,7 @@ class _StandingsListScreenState extends State<StandingsListScreen> {
           Expanded(
             child: FutureBuilder<void>(
               key: ValueKey<int>(selectedSeason),
-              future:
-                  standingsViewModel.fetchStandings(selectedSeason),
+              future: standingsViewModel.fetchStandings(selectedSeason),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -100,16 +99,29 @@ class _StandingsListScreenState extends State<StandingsListScreen> {
                                 return DataRow(
                                   cells: [
                                     DataCell(
-                                      Row(
-                                        children: [
-                                          Image.network(
-                                            team.team.logo,
-                                            width: 30,
-                                            height: 30,
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(team.team.name),
-                                        ],
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TeamDetailsStandingsScreen(
+                                                standings: team,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Row(
+                                          children: [
+                                            Image.network(
+                                              team.team.logo,
+                                              width: 30,
+                                              height: 30,
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Text(team.team.name),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     DataCell(Text(team.division.name)),

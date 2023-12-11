@@ -37,29 +37,6 @@ class NbaApi {
     }
   }
 
-  Future<Map<String, dynamic>> getNBATeamDetails(int teamId) async {
-    final cachedData = await _getLocalCache('teamDetails$teamId');
-    if (cachedData != null) {
-      return cachedData;
-    }
-
-    final response = await http.get(
-      Uri.parse('$apiUrl/teams/$teamId'),
-      headers: {
-        'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
-        'X-RapidAPI-Key': apiKey,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      _saveLocalCache('teamDetails$teamId', data);
-      return data;
-    } else {
-      throw Exception(
-          'Errore durante la chiamata API per i dettagli della squadra');
-    }
-  }
 
   Future<Map<String, dynamic>> getNBAStandings(int season) async {
   final cachedData = await _getLocalCache('standings_$season');
