@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 
 class TeamDetailsScreen extends StatelessWidget {
   final NbaTeam team;
+  final List<NbaPlayer> roster;
 
-  const TeamDetailsScreen({super.key, required this.team});
+  const TeamDetailsScreen({super.key, required this.team, required this.roster});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,28 @@ class TeamDetailsScreen extends StatelessWidget {
             Text('Conferenza: ${team.leagues.standard.conference}'),
             Text('Divisione: ${team.leagues.standard.division}'),
             const SizedBox(height: 16),
-            // Aggiunta della visualizzazione del logo
             Image.network(
               team.logo,
-              width: 100, // Puoi personalizzare le dimensioni del logo secondo le tue esigenze
+              width: 100,
               height: 100,
-              fit: BoxFit.contain, // Per mantenere le proporzioni del logo
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 16),
+            const Text('Roster:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            // Lista dei giocatori nel roster
+            Expanded(
+              child: ListView.builder(
+                itemCount: roster.length,
+                itemBuilder: (context, index) {
+                  final player = roster[index];
+                  return ListTile(
+                    title: Text('${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
+                    subtitle: Text(
+                        'Jersey: ${player.leagues.standard.jersey}, Country: ${player.birth.country}, Height: ${player.height.feets}\'${player.height.inches}", Weight: ${player.weight.pounds} lbs, Date: ${player.birth.date}, College: ${player.college}'
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
+import 'package:provider/provider.dart';
 
 class TeamListScreen extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const TeamListScreen({Key? key});
+  const TeamListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final teamListViewModel =
-        Provider.of<TeamListViewModel>(context, listen: false);
+    final teamListViewModel = Provider.of<TeamListViewModel>(context, listen: false);
+    final rosterViewModel = Provider.of<RosterViewModel>(context, listen: false);
 
     return Scaffold(
       body: FutureBuilder<List<NbaTeam>>(
@@ -32,7 +33,7 @@ class TeamListScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    SizedBox(height: index == 0 ? 12 : 0), 
+                    SizedBox(height: index == 0 ? 12 : 0),
                     ListTile(
                       leading: SizedBox(
                         width: 60,
@@ -42,9 +43,8 @@ class TeamListScreen extends StatelessWidget {
                           width: 60,
                           height: 60,
                           errorBuilder: (context, error, stackTrace) {
-                            
                             return Image.asset(
-                              'assets/fallback_logo.png', 
+                              'assets/fallback_logo.png',
                               width: 60,
                               height: 60,
                             );
@@ -55,17 +55,25 @@ class TeamListScreen extends StatelessWidget {
                         nbaTeams[index].name,
                         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      onTap: () {
+                      onTap: () async {
+                        final NbaTeam selectedTeam = nbaTeams[index];
+
+                        // Recupera il roster usando la RosterViewModel
+                        final List<NbaPlayer> roster = await rosterViewModel.getRoster(selectedTeam.id);
+
+                        // ignore: use_build_context_synchronously
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                TeamDetailsScreen(team: nbaTeams[index]),
+                            builder: (context) => TeamDetailsScreen(
+                              team: selectedTeam,
+                              roster: roster,
+                            ),
                           ),
                         );
                       },
                     ),
-                    const SizedBox(height: 12), 
+                    const SizedBox(height: 12),
                   ],
                 );
               },

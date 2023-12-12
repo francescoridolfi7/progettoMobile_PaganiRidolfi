@@ -1,7 +1,9 @@
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
+
 class NbaStandings {
   final String league;
   final int season;
-  final StandingsTeam team;
+  final NbaTeam team; // Utilizzo della classe NbaTeam al posto di StandingsTeam
   final StandingsConference conference;
   final StandingsDivision division;
   final StandingsWinLoss win;
@@ -29,7 +31,7 @@ class NbaStandings {
     return NbaStandings(
       league: json['league'] ?? '',
       season: json['season'] ?? 0,
-      team: StandingsTeam.fromJson(json['team'] ?? {}),
+      team: NbaTeam.fromJson(json['team'] ?? {}), // Utilizzo di NbaTeam.fromJson
       conference: StandingsConference.fromJson(json['conference'] ?? {}),
       division: StandingsDivision.fromJson(json['division'] ?? {}),
       win: StandingsWinLoss.fromJson(json['win'] ?? {}),
@@ -42,31 +44,6 @@ class NbaStandings {
   }
 }
 
-class StandingsTeam {
-  final int id;
-  final String name;
-  final String nickname;
-  final String code;
-  final String logo;
-
-  StandingsTeam({
-    required this.id,
-    required this.name,
-    required this.nickname,
-    required this.code,
-    required this.logo,
-  });
-
-  factory StandingsTeam.fromJson(Map<String, dynamic> json) {
-    return StandingsTeam(
-      id: json['id'] ?? 0,
-      name: json['name'] ?? '',
-      nickname: json['nickname'] ?? '',
-      code: json['code'] ?? '',
-      logo: json['logo'] ?? '',
-    );
-  }
-}
 
 class StandingsConference {
   final String name;
