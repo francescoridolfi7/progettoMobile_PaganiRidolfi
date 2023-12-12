@@ -7,7 +7,8 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 import 'package:provider/provider.dart';
 
 class StandingsListScreen extends StatefulWidget {
-  const StandingsListScreen({super.key});
+  // ignore: use_key_in_widget_constructors
+  const StandingsListScreen({Key? key});
 
   @override
   _StandingsListScreenState createState() => _StandingsListScreenState();
@@ -107,6 +108,8 @@ class _StandingsListScreenState extends State<StandingsListScreen> {
                                               builder: (context) =>
                                                   TeamDetailsStandingsScreen(
                                                 standings: team,
+                                                selectedSeason:
+                                                    selectedSeason, // Passa la stagione selezionata
                                               ),
                                             ),
                                           );

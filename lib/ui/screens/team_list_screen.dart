@@ -6,8 +6,16 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/ro
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 import 'package:provider/provider.dart';
 
-class TeamListScreen extends StatelessWidget {
+class TeamListScreen extends StatefulWidget {
   const TeamListScreen({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _TeamListScreenState createState() => _TeamListScreenState();
+}
+
+class _TeamListScreenState extends State<TeamListScreen> {
+  int selectedSeason = 2021; // Inizializza con la stagione predefinita
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +67,7 @@ class TeamListScreen extends StatelessWidget {
                         final NbaTeam selectedTeam = nbaTeams[index];
 
                         // Recupera il roster usando la RosterViewModel
-                        final List<NbaPlayer> roster = await rosterViewModel.getRoster(selectedTeam.id);
+                        final List<NbaPlayer> roster = await rosterViewModel.getRoster(selectedTeam.id, selectedSeason);
 
                         // ignore: use_build_context_synchronously
                         Navigator.push(

@@ -4,12 +4,12 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 import 'package:provider/provider.dart';
 
 class TeamStatisticsListScreen extends StatefulWidget {
-  const TeamStatisticsListScreen({Key? key, required this.teamId})
-      : super(key: key);
+  const TeamStatisticsListScreen({super.key, required this.teamId});
 
   final int teamId;
 
   @override
+  // ignore: library_private_types_in_public_api
   _TeamStatisticsListScreenState createState() =>
       _TeamStatisticsListScreenState();
 }
