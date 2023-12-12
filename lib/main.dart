@@ -6,10 +6,13 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/gam
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/standings_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_list_screen.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/teamstatistics_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/games_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
+
+import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/teamstatistics_view_model.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -42,6 +45,11 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               RosterViewModel(Provider.of<NbaApi>(context, listen: false)),
         ),
+        ChangeNotifierProvider(
+          create: (context) => TeamStatisticsViewModel(Provider.of<NbaApi>(
+              context,
+              listen: false)), // Aggiunto il nuovo view model
+        ),
       ],
       child: MaterialApp(
         title: 'Squadre NBA',
@@ -59,7 +67,15 @@ class MyApp extends StatelessWidget {
             final List<NbaPlayer> roster = arguments['roster'];
 
             return MaterialPageRoute(
-              builder: (context) => TeamDetailsScreen(team: team, roster: roster),
+              builder: (context) =>
+                  TeamDetailsScreen(team: team, roster: roster),
+            );
+          } else if (settings.name == '/teamStatistics') {
+            // Aggiunto blocco per la nuova schermata
+            final int teamId = settings.arguments as int;
+
+            return MaterialPageRoute(
+              builder: (context) => TeamStatisticsListScreen(teamId: teamId),
             );
           }
           return null;
@@ -111,7 +127,16 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(context, '/games');
               },
-            )
+            ),
+            ListTile(
+              title: const Text(
+                  'Team Statistics'), // Aggiunto elemento del drawer per la nuova schermata
+              onTap: () {
+                Navigator.pushNamed(context, '/teamStatistics',
+                    arguments:
+                        1); // Sostituisci "1" con l'ID del team desiderato
+              },
+            ),
           ],
         ),
       ),
