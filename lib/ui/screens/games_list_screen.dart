@@ -1,8 +1,12 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/game_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/games_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
+
 
 class GamesListScreen extends StatefulWidget {
   const GamesListScreen({super.key});
@@ -13,8 +17,7 @@ class GamesListScreen extends StatefulWidget {
 }
 
 class _GamesListScreenState extends State<GamesListScreen> {
-  final TextEditingController _dateController =
-      TextEditingController(text: '2022-02-12');
+  final TextEditingController _dateController = TextEditingController(text: '2022-02-12');
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +25,7 @@ class _GamesListScreenState extends State<GamesListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Risultati delle partite NBA',
-            style: TextStyle(color: Colors.white)),
+        title: const Text('Risultati delle partite NBA', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Column(
@@ -45,8 +47,7 @@ class _GamesListScreenState extends State<GamesListScreen> {
                     );
 
                     if (pickedDate != null) {
-                      _dateController.text =
-                          DateFormat('yyyy-MM-dd').format(pickedDate);
+                      _dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
                       await gamesViewModel.fetchGames(_dateController.text);
                       setState(() {});
                     }
@@ -74,47 +75,40 @@ class _GamesListScreenState extends State<GamesListScreen> {
                       final visitorsTeam = games[index].teams.visitors;
                       final homeTeam = games[index].teams.home;
 
-                      String getTeamAbbreviation(String teamName) {
-                        final words = teamName.split(' ');
-                        return words.length >= 2
-                            ? words[0].substring(0, 3).toUpperCase()
-                            : teamName;
-                      }
-
                       return ListTile(
                         title: Text(
                           'Partita: ${getTeamAbbreviation(visitorsTeam.name)} vs ${getTeamAbbreviation(homeTeam.name)}',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18),
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                Image.network(visitorsTeam.logo,
-                                    width: 40, height: 40),
+                                getImageWidget(visitorsTeam.logo),
                                 const SizedBox(width: 12),
                                 Text(
-                                    '${visitorsTeam.name} - ${games[index].scores.visitors.points}',
-                                    style: const TextStyle(fontSize: 16)),
+                                  '${visitorsTeam.name} - ${games[index].scores.visitors.points}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 8),
                             Row(
                               children: [
-                                Image.network(homeTeam.logo,
-                                    width: 40, height: 40),
+                                getImageWidget(homeTeam.logo),
                                 const SizedBox(width: 12),
                                 Text(
-                                    '${homeTeam.name} - ${games[index].scores.home.points}',
-                                    style: const TextStyle(fontSize: 16)),
+                                  '${homeTeam.name} - ${games[index].scores.home.points}',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
                               ],
                             ),
                             const SizedBox(height: 8),
                             Text(
-                                'Data: ${DateFormat('yyyy-MM-dd').format(games[index].date.start)}',
-                                style: const TextStyle(fontSize: 14)),
+                              'Data: ${DateFormat('yyyy-MM-dd').format(games[index].date.start)}',
+                              style: const TextStyle(fontSize: 14),
+                            ),
                           ],
                         ),
                         onTap: () {
@@ -123,13 +117,10 @@ class _GamesListScreenState extends State<GamesListScreen> {
                             MaterialPageRoute(
                               builder: (context) => GameDetailsScreen(
                                 visitorsLogo: visitorsTeam.logo,
-                                visitorsLineScore:
-                                    games[index].scores.visitors.linescore,
-                                visitorsPoints:
-                                    games[index].scores.visitors.points,
+                                visitorsLineScore: games[index].scores.visitors.linescore,
+                                visitorsPoints: games[index].scores.visitors.points,
                                 homeLogo: homeTeam.logo,
-                                homeLineScore:
-                                    games[index].scores.home.linescore,
+                                homeLineScore: games[index].scores.home.linescore,
                                 homePoints: games[index].scores.home.points,
                               ),
                             ),
@@ -145,5 +136,33 @@ class _GamesListScreenState extends State<GamesListScreen> {
         ],
       ),
     );
+  }
+
+  bool isImageUrlValid(String? imageUrl) {
+    return imageUrl != null && imageUrl.isNotEmpty;
+  }
+
+  Widget getImageWidget(String? imageUrl) {
+    try {
+      if (isImageUrlValid(imageUrl)) {
+        return Image.network(
+          imageUrl!,
+          width: 40,
+          height: 40,
+        );
+      }
+    } catch (e) {
+      print('Errore durante il caricamento dell\'immagine: $e');
+    }
+
+    // Rimuovi l'immagine in caso di errore
+    return Container();
+  }
+
+  String getTeamAbbreviation(String teamName) {
+    final words = teamName.split(' ');
+    return words.isNotEmpty
+        ? words[0].substring(0, min(3, words[0].length)).toUpperCase()
+        : teamName;
   }
 }

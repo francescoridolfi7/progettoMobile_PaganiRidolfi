@@ -46,12 +46,32 @@ class GameDetailsScreen extends StatelessWidget {
   }
 
   DataRow buildDataRow(String teamLogo, List<String> lineScore, int points) {
+    try {
+      if (isImageUrlValid(teamLogo)) {
+        return DataRow(
+          cells: [
+            DataCell(Image.network(teamLogo, width: 30, height: 30)),
+            for (String score in lineScore) DataCell(Center(child: Text(score))),
+            DataCell(Text('$points')),
+          ],
+        );
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print('Errore durante il caricamento dell\'immagine: $e');
+    }
+
+    // Rimuovi l'immagine in caso di errore
     return DataRow(
       cells: [
-        DataCell(Image.network(teamLogo, width: 30, height: 30)),
+        DataCell(Container()), // Cell vuota al posto dell'immagine
         for (String score in lineScore) DataCell(Center(child: Text(score))),
         DataCell(Text('$points')),
       ],
     );
+  }
+
+  bool isImageUrlValid(String? imageUrl) {
+    return imageUrl != null && imageUrl.isNotEmpty;
   }
 }
