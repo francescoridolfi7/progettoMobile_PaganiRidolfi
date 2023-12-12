@@ -12,8 +12,9 @@ class RosterViewModel extends ChangeNotifier {
   Future<List<NbaPlayer>> getRoster(int teamId) async {
     try {
       final Map<String, dynamic> rosterData = await nbaApi.getNBARoster(teamId);
-      print(rosterData);
-      final List<dynamic> playerDataList = rosterData['players'] ?? [];
+      print('Roster:$rosterData');
+      final List<dynamic> playerDataList = rosterData['response'] ?? [];
+      print('Roster 2:$playerDataList');
       final List<NbaPlayer> roster = playerDataList.map((playerData) => NbaPlayer.fromJson(playerData)).toList();
       return roster;
     } catch (e) {

@@ -105,10 +105,11 @@ class NbaApi {
   };
 
   final Map<String, String> params = {
+    'team': teamId.toString(), // Modifica qui
     'season': '2021',
   };
 
-  final Uri uri = Uri.parse('$apiUrl/players/$teamId').replace(queryParameters: params);
+  final Uri uri = Uri.parse('$apiUrl/players').replace(queryParameters: params); // Modifica qui
 
   print('URL della richiesta: $uri');  // Aggiunto questo print per visualizzare l'URL
 
@@ -124,6 +125,7 @@ class NbaApi {
     );
   }
 }
+
 
 
   static Future<Map<String, dynamic>> _fetchAndSaveData(
