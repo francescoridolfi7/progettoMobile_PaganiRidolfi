@@ -15,7 +15,7 @@ class StandingsListScreen extends StatefulWidget {
 }
 
 class _StandingsListScreenState extends State<StandingsListScreen> {
-  int selectedSeason = 2021; // Inizializza con la stagione predefinita
+  int selectedSeason = 2023; // Inizializza con la stagione predefinita
 
   @override
   Widget build(BuildContext context) {

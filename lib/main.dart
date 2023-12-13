@@ -71,7 +71,6 @@ class MyApp extends StatelessWidget {
                   TeamDetailsScreen(team: team, roster: roster),
             );
           } else if (settings.name == '/teamStatistics') {
-            // Aggiunto blocco per la nuova schermata
             final int teamId = settings.arguments as int;
 
             return MaterialPageRoute(
@@ -98,16 +97,27 @@ class HomeScreen extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
+            DrawerHeader(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 29, 66, 138),
               ),
-              child: Text(
-                'NBA App',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, // Aggiunto allineamento verticale al centro
+                children: [
+                  const Text(
+                    'NBA App',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/nba_logo.png', // Assicurati che il percorso sia corretto
+                    height: 80, // Altezza desiderata
+                  ),
+                  const SizedBox(height: 8), // Aggiunto uno spazio tra l'immagine e il testo
+                  
+                ],
               ),
             ),
             ListTile(
@@ -129,12 +139,10 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text(
-                  'Team Statistics'), // Aggiunto elemento del drawer per la nuova schermata
+              title: const Text('Team Statistics'),
               onTap: () {
                 Navigator.pushNamed(context, '/teamStatistics',
-                    arguments:
-                        1); // Sostituisci "1" con l'ID del team desiderato
+                    arguments: 1); // Sostituisci "1" con l'ID del team desiderato
               },
             ),
           ],
@@ -144,3 +152,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
