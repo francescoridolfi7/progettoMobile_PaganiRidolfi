@@ -10,17 +10,18 @@ class TeamListScreen extends StatefulWidget {
   const TeamListScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _TeamListScreenState createState() => _TeamListScreenState();
+  TeamListScreenState createState() => TeamListScreenState();
 }
 
-class _TeamListScreenState extends State<TeamListScreen> {
-  int selectedSeason = 2023; // Inizializza con la stagione predefinita
+class TeamListScreenState extends State<TeamListScreen> {
+  int selectedSeason = 2023;
 
   @override
   Widget build(BuildContext context) {
-    final teamListViewModel = Provider.of<TeamListViewModel>(context, listen: false);
-    final rosterViewModel = Provider.of<RosterViewModel>(context, listen: false);
+    final teamListViewModel =
+        Provider.of<TeamListViewModel>(context, listen: false);
+    final rosterViewModel =
+        Provider.of<RosterViewModel>(context, listen: false);
 
     return Scaffold(
       body: FutureBuilder<List<NbaTeam>>(
@@ -61,13 +62,14 @@ class _TeamListScreenState extends State<TeamListScreen> {
                       ),
                       title: Text(
                         nbaTeams[index].name,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       onTap: () async {
                         final NbaTeam selectedTeam = nbaTeams[index];
 
-                        // Recupera il roster usando la RosterViewModel
-                        final List<NbaPlayer> roster = await rosterViewModel.getRoster(selectedTeam.id, selectedSeason);
+                        final List<NbaPlayer> roster = await rosterViewModel
+                            .getRoster(selectedTeam.id, selectedSeason);
 
                         // ignore: use_build_context_synchronously
                         Navigator.push(

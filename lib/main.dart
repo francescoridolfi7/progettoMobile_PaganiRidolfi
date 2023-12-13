@@ -11,7 +11,6 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/ga
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
-
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/teamstatistics_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => TeamStatisticsViewModel(Provider.of<NbaApi>(
               context,
-              listen: false)), // Aggiunto il nuovo view model
+              listen: false)), 
         ),
       ],
       child: MaterialApp(
@@ -102,7 +101,7 @@ class HomeScreen extends StatelessWidget {
                 color: Color.fromARGB(255, 29, 66, 138),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // Aggiunto allineamento verticale al centro
+                mainAxisAlignment: MainAxisAlignment.center, 
                 children: [
                   const Text(
                     'NBA App',
@@ -112,10 +111,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Image.asset(
-                    'assets/nba_logo.png', // Assicurati che il percorso sia corretto
-                    height: 80, // Altezza desiderata
+                    'assets/nba_logo.png', 
+                    height: 80, 
                   ),
-                  const SizedBox(height: 8), // Aggiunto uno spazio tra l'immagine e il testo
+                  const SizedBox(height: 8), 
                   
                 ],
               ),
@@ -142,7 +141,7 @@ class HomeScreen extends StatelessWidget {
               title: const Text('Team Statistics'),
               onTap: () {
                 Navigator.pushNamed(context, '/teamStatistics',
-                    arguments: 1); // Sostituisci "1" con l'ID del team desiderato
+                    arguments: 1); 
               },
             ),
           ],

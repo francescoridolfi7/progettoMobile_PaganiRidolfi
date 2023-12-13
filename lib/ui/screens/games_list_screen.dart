@@ -1,23 +1,22 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/game_details_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/games_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
-
+import 'package:logger/logger.dart';
 
 class GamesListScreen extends StatefulWidget {
   const GamesListScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _GamesListScreenState createState() => _GamesListScreenState();
+  GamesListScreenState createState() => GamesListScreenState();
 }
 
-class _GamesListScreenState extends State<GamesListScreen> {
-  final TextEditingController _dateController = TextEditingController(text: '2022-02-12');
+class GamesListScreenState extends State<GamesListScreen> {
+  final TextEditingController _dateController =
+      TextEditingController(text: '2022-02-12');
+  final logger = Logger();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,8 @@ class _GamesListScreenState extends State<GamesListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Risultati delle partite NBA', style: TextStyle(color: Colors.white)),
+        title: const Text('Risultati delle partite NBA',
+            style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Column(
@@ -47,7 +47,8 @@ class _GamesListScreenState extends State<GamesListScreen> {
                     );
 
                     if (pickedDate != null) {
-                      _dateController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                      _dateController.text =
+                          DateFormat('yyyy-MM-dd').format(pickedDate);
                       await gamesViewModel.fetchGames(_dateController.text);
                       setState(() {});
                     }
@@ -64,6 +65,7 @@ class _GamesListScreenState extends State<GamesListScreen> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
+                  logger.e('Errore: ${snapshot.error}');
                   return Center(child: Text('Errore: ${snapshot.error}'));
                 } else {
                   final games = gamesViewModel.games;
@@ -78,7 +80,8 @@ class _GamesListScreenState extends State<GamesListScreen> {
                       return ListTile(
                         title: Text(
                           'Partita: ${getTeamAbbreviation(visitorsTeam.name)} vs ${getTeamAbbreviation(homeTeam.name)}',
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,10 +120,13 @@ class _GamesListScreenState extends State<GamesListScreen> {
                             MaterialPageRoute(
                               builder: (context) => GameDetailsScreen(
                                 visitorsLogo: visitorsTeam.logo,
-                                visitorsLineScore: games[index].scores.visitors.linescore,
-                                visitorsPoints: games[index].scores.visitors.points,
+                                visitorsLineScore:
+                                    games[index].scores.visitors.linescore,
+                                visitorsPoints:
+                                    games[index].scores.visitors.points,
                                 homeLogo: homeTeam.logo,
-                                homeLineScore: games[index].scores.home.linescore,
+                                homeLineScore:
+                                    games[index].scores.home.linescore,
                                 homePoints: games[index].scores.home.points,
                               ),
                             ),
@@ -152,7 +158,7 @@ class _GamesListScreenState extends State<GamesListScreen> {
         );
       }
     } catch (e) {
-      print('Errore durante il caricamento dell\'immagine: $e');
+      logger.e('Errore durante il caricamento dell\'immagine: $e');
     }
 
     // Rimuovi l'immagine in caso di errore

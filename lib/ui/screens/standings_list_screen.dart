@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/team_details_standings_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
@@ -7,14 +5,13 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 import 'package:provider/provider.dart';
 
 class StandingsListScreen extends StatefulWidget {
-  // ignore: use_key_in_widget_constructors
-  const StandingsListScreen({Key? key});
+  const StandingsListScreen({super.key});
 
   @override
-  _StandingsListScreenState createState() => _StandingsListScreenState();
+  StandingsListScreenState createState() => StandingsListScreenState();
 }
 
-class _StandingsListScreenState extends State<StandingsListScreen> {
+class StandingsListScreenState extends State<StandingsListScreen> {
   int selectedSeason = 2023; // Inizializza con la stagione predefinita
 
   @override
@@ -24,7 +21,8 @@ class _StandingsListScreenState extends State<StandingsListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Classifica NBA', style: TextStyle(color: Colors.white)),
+        title:
+            const Text('Classifica NBA', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Column(
@@ -34,7 +32,6 @@ class _StandingsListScreenState extends State<StandingsListScreen> {
             child: DropdownButton<int>(
               value: selectedSeason,
               onChanged: (value) {
-                print("Selected Season: $value");
                 setState(() {
                   selectedSeason = value!;
                 });
@@ -108,8 +105,7 @@ class _StandingsListScreenState extends State<StandingsListScreen> {
                                               builder: (context) =>
                                                   TeamDetailsStandingsScreen(
                                                 standings: team,
-                                                selectedSeason:
-                                                    selectedSeason, // Passa la stagione selezionata
+                                                selectedSeason: selectedSeason,
                                               ),
                                             ),
                                           );

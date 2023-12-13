@@ -42,7 +42,7 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             const Text('Roster:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            // Lista dei giocatori nel roster
+        
             FutureBuilder<List<NbaPlayer>>(
               future: rosterViewModel.getRoster(
                 standings.team.id,
