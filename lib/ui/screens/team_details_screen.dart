@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
@@ -44,7 +46,7 @@ class TeamDetailsScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 29, 66, 138), 
+                backgroundColor: const Color.fromARGB(255, 29, 66, 138), 
               ),
               child: Text(
                 'Vedi Statistiche',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
-import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/teamstatistics_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:provider/provider.dart';
@@ -53,10 +52,12 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: const Color.fromARGB(255, 29, 66, 138), 
+                backgroundColor: const Color.fromARGB(255, 29, 66, 138), 
               ),
+              // ignore: prefer_const_constructors
               child: Text(
                 'Vedi Statistiche',
+                // ignore: prefer_const_constructors
                 style: TextStyle(color: Colors.white), 
               ),
             ),
