@@ -128,15 +128,6 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/games');
               },
             ),
-            ListTile(
-              title: const Text(
-                  'Team Statistics'), // Aggiunto elemento del drawer per la nuova schermata
-              onTap: () {
-                Navigator.pushNamed(context, '/teamStatistics',
-                    arguments:
-                        1); // Sostituisci "1" con l'ID del team desiderato
-              },
-            ),
           ],
         ),
       ),

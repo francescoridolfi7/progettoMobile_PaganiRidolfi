@@ -133,8 +133,8 @@ class NbaApi {
     };
 
     final Map<String, String> params = {
-      'id': '1',
-      'season': '2020',
+      'id': teamId.toString(),
+      'season': '2023',
     };
 
     final Uri uri =

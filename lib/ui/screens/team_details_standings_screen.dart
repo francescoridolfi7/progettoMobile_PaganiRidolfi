@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/teamstatistics_list_screen.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +10,7 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
   final NbaStandings standings;
   final int selectedSeason;
 
-  const TeamDetailsStandingsScreen({
+ const TeamDetailsStandingsScreen({
     super.key,
     required this.standings,
     required this.selectedSeason,
@@ -18,7 +20,7 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final rosterViewModel =
         Provider.of<RosterViewModel>(context, listen: false);
-
+        
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dettagli Squadra', style: TextStyle(color: Colors.white)),
@@ -40,9 +42,26 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
               height: 100,
               fit: BoxFit.contain,
             ),
+            const SizedBox(height: 8), 
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TeamStatisticsListScreen(teamId: standings.team.id),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(255, 29, 66, 138), 
+              ),
+              child: Text(
+                'Vedi Statistiche',
+                style: TextStyle(color: Colors.white), 
+              ),
+            ),
             const SizedBox(height: 16),
             const Text('Roster:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            // Lista dei giocatori nel roster
             FutureBuilder<List<NbaPlayer>>(
               future: rosterViewModel.getRoster(
                 standings.team.id,

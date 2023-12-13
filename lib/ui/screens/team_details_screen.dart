@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_team.dart';
+import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/teamstatistics_list_screen.dart';
 
 class TeamDetailsScreen extends StatelessWidget {
   final NbaTeam team;
@@ -32,9 +33,26 @@ class TeamDetailsScreen extends StatelessWidget {
               height: 100,
               fit: BoxFit.contain,
             ),
+            const SizedBox(height: 8), 
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TeamStatisticsListScreen(teamId: team.id),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(255, 29, 66, 138), 
+              ),
+              child: Text(
+                'Vedi Statistiche',
+                style: TextStyle(color: Colors.white), 
+              ),
+            ),
             const SizedBox(height: 16),
             const Text('Roster:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            // Lista dei giocatori nel roster
             Expanded(
               child: ListView.builder(
                 itemCount: roster.length,
@@ -43,7 +61,7 @@ class TeamDetailsScreen extends StatelessWidget {
                   return ListTile(
                     title: Text('${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
                     subtitle: Text(
-                        'Jersey: ${player.leagues.standard.jersey}, Country: ${player.birth.country}, Height: ${player.height.feets}\'${player.height.inches}", Weight: ${player.weight.pounds} lbs, Date: ${player.birth.date}, College: ${player.college}'
+                      'Jersey: ${player.leagues.standard.jersey}, Country: ${player.birth.country}, Height: ${player.height.feets}\'${player.height.inches}", Weight: ${player.weight.pounds} lbs, Date: ${player.birth.date}, College: ${player.college}'
                     ),
                   );
                 },
