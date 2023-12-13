@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
@@ -9,8 +11,8 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
   final NbaStandings standings;
   final int selectedSeason;
 
- const TeamDetailsStandingsScreen({
-    super.key,
+  const TeamDetailsStandingsScreen({
+    Key? key,
     required this.standings,
     required this.selectedSeason,
   });
@@ -19,7 +21,7 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final rosterViewModel =
         Provider.of<RosterViewModel>(context, listen: false);
-        
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dettagli Squadra', style: TextStyle(color: Colors.white)),
@@ -30,10 +32,35 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Nome completo: ${standings.team.name}'),
-            Text('Abbreviazione: ${standings.team.nickname}'),
-            Text('Conferenza: ${standings.conference.name}'),
-            Text('Divisione: ${standings.division.name}'),
+            Text(
+              'Nome completo: ${standings.team.name}',
+              style: TextStyle(
+                fontSize: 24, 
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Roboto',
+              ),
+            ),
+            Text(
+              'Abbreviazione: ${standings.team.nickname}',
+              style: TextStyle(
+                fontSize: 18, 
+                fontFamily: 'Roboto', 
+              ),
+            ),
+            Text(
+              'Conferenza: ${standings.conference.name}',
+              style: TextStyle(
+                fontSize: 18, 
+                fontFamily: 'Roboto', 
+              ),
+            ),
+            Text(
+              'Divisione: ${standings.division.name}',
+              style: TextStyle(
+                fontSize: 18, 
+                fontFamily: 'Roboto', 
+              ),
+            ),
             const SizedBox(height: 16),
             Image.network(
               standings.team.logo,
@@ -41,7 +68,7 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
               height: 100,
               fit: BoxFit.contain,
             ),
-            const SizedBox(height: 8), 
+            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -52,13 +79,11 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 29, 66, 138), 
+                backgroundColor: const Color.fromARGB(255, 29, 66, 138),
               ),
-              // ignore: prefer_const_constructors
               child: Text(
                 'Vedi Statistiche',
-                // ignore: prefer_const_constructors
-                style: TextStyle(color: Colors.white), 
+                style: TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(height: 16),
