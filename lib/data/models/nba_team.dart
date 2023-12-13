@@ -10,7 +10,7 @@ class NbaTeam {
   final bool allStar;
   final bool nbaFranchise;
   final Leagues leagues;
-  final List<NbaPlayer> roster; // Aggiunto campo per il roster dei giocatori
+  final List<NbaPlayer> roster; 
 
   NbaTeam({
     required this.id,
@@ -22,7 +22,7 @@ class NbaTeam {
     required this.allStar,
     required this.nbaFranchise,
     required this.leagues,
-    required this.roster, // Aggiunto campo per il roster dei giocatori
+    required this.roster, 
   });
 
   Map<String, dynamic> toJson() {
@@ -36,7 +36,7 @@ class NbaTeam {
       'allStar': allStar,
       'nbaFranchise': nbaFranchise,
       'leagues': leagues.toJson(),
-      'roster': roster.map((player) => player.toJson()).toList(), // Serializzazione del roster
+      'roster': roster.map((player) => player.toJson()).toList(), 
     };
   }
 

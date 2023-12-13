@@ -9,12 +9,12 @@ class TeamStatisticsListScreen extends StatefulWidget {
   final int teamId;
 
   @override
-  // ignore: library_private_types_in_public_api
-  _TeamStatisticsListScreenState createState() =>
-      _TeamStatisticsListScreenState();
+
+  TeamStatisticsListScreenState createState() =>
+      TeamStatisticsListScreenState();
 }
 
-class _TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
+class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
   @override
   Widget build(BuildContext context) {
     final teamStatisticsViewModel =

@@ -11,7 +11,6 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/ga
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
-
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/teamstatistics_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => TeamStatisticsViewModel(Provider.of<NbaApi>(
               context,
-              listen: false)), // Aggiunto il nuovo view model
+              listen: false)), 
         ),
       ],
       child: MaterialApp(
@@ -71,7 +70,6 @@ class MyApp extends StatelessWidget {
                   TeamDetailsScreen(team: team, roster: roster),
             );
           } else if (settings.name == '/teamStatistics') {
-            // Aggiunto blocco per la nuova schermata
             final int teamId = settings.arguments as int;
 
             return MaterialPageRoute(
@@ -98,16 +96,27 @@ class HomeScreen extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
+            DrawerHeader(
+              decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 29, 66, 138),
               ),
-              child: Text(
-                'NBA App',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, 
+                children: [
+                  const Text(
+                    'NBA App',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/nba_logo.png', 
+                    height: 80, 
+                  ),
+                  const SizedBox(height: 8), 
+                  
+                ],
               ),
             ),
             ListTile(
@@ -135,3 +144,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_print
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -111,7 +110,6 @@ class NbaApi {
     final Uri uri = Uri.parse('$apiUrl/players')
         .replace(queryParameters: params);
 
-    print('URL della richiesta: $uri');
 
     final http.Response response = await http.get(uri, headers: headers);
 
@@ -140,15 +138,13 @@ class NbaApi {
     final Uri uri =
         Uri.parse('$apiUrl/teams/statistics').replace(queryParameters: params);
 
-    print(
-        'URL della richiesta: $uri'); // Aggiunto questo print per visualizzare l'URL
 
     final http.Response response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
       _saveLocalCache(
-          'statistics_2020', data); // Aggiunto teamId al nome della cache
+          'statistics_2020', data); 
       return data;
     } else {
       throw Exception(

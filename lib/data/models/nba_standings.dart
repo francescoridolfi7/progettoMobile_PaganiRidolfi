@@ -3,7 +3,7 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 class NbaStandings {
   final String league;
   final int season;
-  final NbaTeam team; // Utilizzo della classe NbaTeam al posto di StandingsTeam
+  final NbaTeam team; 
   final StandingsConference conference;
   final StandingsDivision division;
   final StandingsWinLoss win;
@@ -31,7 +31,7 @@ class NbaStandings {
     return NbaStandings(
       league: json['league'] ?? '',
       season: json['season'] ?? 0,
-      team: NbaTeam.fromJson(json['team'] ?? {}), // Utilizzo di NbaTeam.fromJson
+      team: NbaTeam.fromJson(json['team'] ?? {}), 
       conference: StandingsConference.fromJson(json['conference'] ?? {}),
       division: StandingsDivision.fromJson(json['division'] ?? {}),
       win: StandingsWinLoss.fromJson(json['win'] ?? {}),
