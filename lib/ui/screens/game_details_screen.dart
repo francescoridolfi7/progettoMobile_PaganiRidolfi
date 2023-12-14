@@ -10,14 +10,14 @@ class GameDetailsScreen extends StatelessWidget {
   final int homePoints;
 
   GameDetailsScreen({
-    Key? key,
+    super.key,
     required this.visitorsLogo,
     required this.visitorsLineScore,
     required this.visitorsPoints,
     required this.homeLogo,
     required this.homeLineScore,
     required this.homePoints,
-  }) : super(key: key);
+  });
 
   final logger = Logger();
 
