@@ -8,8 +8,10 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/tea
 class TeamDetailsScreen extends StatelessWidget {
   final NbaTeam team;
   final List<NbaPlayer> roster;
+  
+  final int selectedSeason;
 
-  const TeamDetailsScreen({Key? key, required this.team, required this.roster});
+  const TeamDetailsScreen({Key? key, required this.team, required this.roster, required this.selectedSeason});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class TeamDetailsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TeamStatisticsListScreen(teamId: team.id),
+                    builder: (context) => TeamStatisticsListScreen(teamId: team.id, selectedSeason: selectedSeason),
                   ),
                 );
               },

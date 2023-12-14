@@ -4,9 +4,11 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 import 'package:provider/provider.dart';
 
 class TeamStatisticsListScreen extends StatefulWidget {
-  const TeamStatisticsListScreen({super.key, required this.teamId});
+  const TeamStatisticsListScreen({super.key, required this.teamId, required this.selectedSeason});
 
   final int teamId;
+  
+  final int selectedSeason;
 
   @override
 
@@ -27,7 +29,7 @@ class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: FutureBuilder<void>(
-        future: teamStatisticsViewModel.fetchTeamStatistics(widget.teamId),
+        future: teamStatisticsViewModel.fetchTeamStatistics(widget.teamId, widget.selectedSeason),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

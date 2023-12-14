@@ -1,4 +1,6 @@
 
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -124,34 +126,32 @@ class NbaApi {
     }
   }
 
-  Future<Map<String, dynamic>> getNBAStatistics(int teamId) async {
-    final Map<String, String> headers = {
-      'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
-      'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
-    };
+  Future<Map<String, dynamic>> getNBAStatistics(int teamId, int selectedSeason) async {
+  final Map<String, String> headers = {
+    'X-RapidAPI-Key': '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb',
+    'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+  };
 
-    final Map<String, String> params = {
-      'id': teamId.toString(),
-      'season': '2023',
-    };
+  final Map<String, String> params = {
+    'id': teamId.toString(),
+    'season': selectedSeason.toString(),
+  };
 
-    final Uri uri =
-        Uri.parse('$apiUrl/teams/statistics').replace(queryParameters: params);
+  final Uri uri = Uri.parse('$apiUrl/teams/statistics').replace(queryParameters: params);
 
+  final http.Response response = await http.get(uri, headers: headers);
 
-    final http.Response response = await http.get(uri, headers: headers);
-
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> data = json.decode(response.body);
-      _saveLocalCache(
-          'statistics_2020', data); 
-      return data;
-    } else {
-      throw Exception(
-        'Errore nella richiesta HTTP. Codice di stato: ${response.statusCode}',
-      );
-    }
+  if (response.statusCode == 200) {
+    final Map<String, dynamic> data = json.decode(response.body);
+    _saveLocalCache('statistics_${selectedSeason}', data);
+    return data;
+  } else {
+    throw Exception(
+      'Errore nella richiesta HTTP. Codice di stato: ${response.statusCode}',
+    );
   }
+}
+
 
   static Future<Map<String, dynamic>> _fetchAndSaveData(
       Map<String, dynamic> args) async {

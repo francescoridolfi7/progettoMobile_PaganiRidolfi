@@ -12,11 +12,10 @@ class TeamStatisticsViewModel extends ChangeNotifier {
   NbaTeamStatistics? _teamStatistics;
   NbaTeamStatistics? get teamStatistics => _teamStatistics;
 
-  Future<void> fetchTeamStatistics(int teamId) async {
+ Future<void> fetchTeamStatistics(int teamId, int selectedSeason) async {
     try {
-      final teamStatisticsData = await nbaApi.getNBAStatistics(teamId);
-      final teamStatistics =
-          NbaTeamStatistics.fromJson(teamStatisticsData['response'][0]);
+      final teamStatisticsData = await nbaApi.getNBAStatistics(teamId, selectedSeason);
+      final teamStatistics = NbaTeamStatistics.fromJson(teamStatisticsData['response'][0]);
       _teamStatistics = teamStatistics;
       notifyListeners();
     } catch (e, stacktrace) {
