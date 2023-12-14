@@ -84,14 +84,14 @@ class StandingsListScreenState extends State<StandingsListScreen> {
                             scrollDirection: Axis.horizontal,
                             child: DataTable(
                               columns: const [
-                                DataColumn(label: Text('Team')),
-                                DataColumn(label: Text('Division')),
-                                DataColumn(label: Text('Wins')),
-                                DataColumn(label: Text('Losses')),
-                                DataColumn(label: Text('Win Percentage')),
-                                DataColumn(label: Text('Games Behind')),
+                                DataColumn(label: Text('Squadra')),
+                                DataColumn(label: Text('Divisione')),
+                                DataColumn(label: Text('Vittorie')),
+                                DataColumn(label: Text('Sconfitte')),
+                                DataColumn(label: Text('Percentuale vittorie')),
+                                DataColumn(label: Text('Distanza vittorie dalla prima')),
                                 DataColumn(label: Text('Streak')),
-                                DataColumn(label: Text('Last Ten')),
+                                DataColumn(label: Text('Ultime dieci')),
                               ],
                               rows: conferenceStandings.map((team) {
                                 return DataRow(

@@ -26,7 +26,7 @@ class TeamDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Nome completo: ${team.name}',
+              'Nome completo:   ${team.name}',
               style: TextStyle(
                 fontSize: 24, 
                 fontWeight: FontWeight.bold,
@@ -34,28 +34,28 @@ class TeamDetailsScreen extends StatelessWidget {
               ),
             ),
             Text(
-              'Abbreviazione: ${team.nickname}',
+              'Soprannome:   ${team.nickname}',
               style: TextStyle(
                 fontSize: 18, 
                 fontFamily: 'Roboto', 
               ),
             ),
             Text(
-              'Città: ${team.city}',
+              'Città:   ${team.city}',
               style: TextStyle(
                 fontSize: 18, 
                 fontFamily: 'Roboto', 
               ),
             ),
             Text(
-              'Conferenza: ${team.leagues.standard.conference}',
+              'Conferenza:  ${team.leagues.standard.conference}',
               style: TextStyle(
                 fontSize: 18, 
                 fontFamily: 'Roboto', 
               ),
             ),
             Text(
-              'Divisione: ${team.leagues.standard.division}',
+              'Divisione:   ${team.leagues.standard.division}',
               style: TextStyle(
                 fontSize: 18, 
                 fontFamily: 'Roboto', 
@@ -96,7 +96,7 @@ class TeamDetailsScreen extends StatelessWidget {
                   return ListTile(
                     title: Text('${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
                     subtitle: Text(
-                      'Jersey: ${player.leagues.standard.jersey}, Country: ${player.birth.country}, Height: ${player.height.feets}\'${player.height.inches}", Weight: ${player.weight.pounds} lbs, Date: ${player.birth.date}, College: ${player.college}'
+                      'Maglietta: ${player.leagues.standard.jersey}, Paese: ${player.birth.country}, Altezza: ${player.height.feets}\'${player.height.inches}", Peso: ${player.weight.pounds} lbs, Data di nascita: ${player.birth.date}, College: ${player.college}'
                     ),
                   );
                 },

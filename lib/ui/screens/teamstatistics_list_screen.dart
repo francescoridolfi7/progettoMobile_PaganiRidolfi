@@ -6,13 +6,15 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 import 'package:provider/provider.dart';
 
 class TeamStatisticsListScreen extends StatefulWidget {
-  const TeamStatisticsListScreen({super.key, required this.teamId, required this.selectedSeason});
+  const TeamStatisticsListScreen(
+      {super.key, required this.teamId, required this.selectedSeason});
 
   final int teamId;
   final int selectedSeason;
 
   @override
-  TeamStatisticsListScreenState createState() => TeamStatisticsListScreenState();
+  TeamStatisticsListScreenState createState() =>
+      TeamStatisticsListScreenState();
 }
 
 class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
@@ -23,11 +25,13 @@ class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Statistiche della squadra', style: TextStyle(color: Colors.white)),
+        title: const Text('Statistiche della squadra',
+            style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: FutureBuilder<void>(
-        future: teamStatisticsViewModel.fetchTeamStatistics(widget.teamId, widget.selectedSeason),
+        future: teamStatisticsViewModel.fetchTeamStatistics(
+            widget.teamId, widget.selectedSeason),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -72,39 +76,55 @@ class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
                   columnSpacing: 32,
                   columns: [
                     DataColumn(
-                      label: Text('Statistica', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Roboto')),
+                      label: Text('Statistica',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Roboto')),
                     ),
                     DataColumn(label: Text('')),
                     DataColumn(
-                      label: Text('Valore', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Roboto')),
+                      label: Text('Valore',
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Roboto')),
                     ),
                   ],
                   rows: [
-                    _buildDataRow('Games:', teamStatistics.games),
-                    _buildDataRow('Fast Break Points:', teamStatistics.fastBreakPoints),
-                    _buildDataRow('Points In Paint:', teamStatistics.pointsInPaint),
-                    _buildDataRow('Biggest Lead:', teamStatistics.biggestLead),
-                    _buildDataRow('Second Chance Points:', teamStatistics.secondChancePoints),
-                    _buildDataRow('Points Off Turnovers:', teamStatistics.pointsOffTurnovers),
-                    _buildDataRow('Longest Run:', teamStatistics.longestRun),
-                    _buildDataRow('Points:', teamStatistics.points),
-                    _buildDataRow('Field Goals Made:', teamStatistics.fgm),
-                    _buildDataRow('Field Goals Attempted:', teamStatistics.fga),
-                    _buildDataRow('Field Goal Percentage:', teamStatistics.fgp),
-                    _buildDataRow('Free Throws Made:', teamStatistics.ftm),
-                    _buildDataRow('Free Throws Attempted:', teamStatistics.fta),
-                    _buildDataRow('Free Throw Percentage:', teamStatistics.ftp),
-                    _buildDataRow('Three-Pointers Made:', teamStatistics.tpm),
-                    _buildDataRow('Three-Pointers Attempted:', teamStatistics.tpa),
-                    _buildDataRow('Three-Point Percentage:', teamStatistics.tpp),
-                    _buildDataRow('Offensive Rebounds:', teamStatistics.offReb),
-                    _buildDataRow('Defensive Rebounds:', teamStatistics.defReb),
-                    _buildDataRow('Total Rebounds:', teamStatistics.totReb),
-                    _buildDataRow('Assists:', teamStatistics.assists),
-                    _buildDataRow('Personal Fouls:', teamStatistics.pFouls),
-                    _buildDataRow('Steals:', teamStatistics.steals),
-                    _buildDataRow('Turnovers:', teamStatistics.turnovers),
-                    _buildDataRow('Blocks:', teamStatistics.blocks),
+                    _buildDataRow('Partite giocate:', teamStatistics.games),
+                    _buildDataRow('Punti in transizione veloce:',
+                        teamStatistics.fastBreakPoints),
+                    _buildDataRow(
+                        'Punti in area dipinta:', teamStatistics.pointsInPaint),
+                    _buildDataRow(
+                        'Vantaggio più ampio:', teamStatistics.biggestLead),
+                    _buildDataRow('Punti da seconde possibilità:',
+                        teamStatistics.secondChancePoints),
+                    _buildDataRow('Punti da palle perse avversarie:',
+                        teamStatistics.pointsOffTurnovers),
+                    _buildDataRow(
+                        'Striscia più lunga:', teamStatistics.longestRun),
+                    _buildDataRow('Punti totali:', teamStatistics.points),
+                    _buildDataRow('Canestri segnati:', teamStatistics.fgm),
+                    _buildDataRow('Tiri tentati:', teamStatistics.fga),
+                    _buildDataRow(
+                        'Percentuale da due punti:', teamStatistics.fgp),
+                    _buildDataRow('Liberi segnati:', teamStatistics.ftm),
+                    _buildDataRow('Liberi tentati:', teamStatistics.fta),
+                    _buildDataRow('Percentuale ai liberi:', teamStatistics.ftp),
+                    _buildDataRow('Triple segnate:', teamStatistics.tpm),
+                    _buildDataRow('Triple tentate:', teamStatistics.tpa),
+                    _buildDataRow(
+                        'Percentuale da tre punti:', teamStatistics.tpp),
+                    _buildDataRow('Rimbalzi offensivi:', teamStatistics.offReb),
+                    _buildDataRow('Rimbalzi difensivi:', teamStatistics.defReb),
+                    _buildDataRow('Rimbalzi totali:', teamStatistics.totReb),
+                    _buildDataRow('Assist:', teamStatistics.assists),
+                    _buildDataRow('Falli personali:', teamStatistics.pFouls),
+                    _buildDataRow('Rubate:', teamStatistics.steals),
+                    _buildDataRow('Palle perse:', teamStatistics.turnovers),
+                    _buildDataRow('Stoppate:', teamStatistics.blocks),
                     _buildDataRow('Plus-Minus:', teamStatistics.plusMinus),
                   ],
                 ),

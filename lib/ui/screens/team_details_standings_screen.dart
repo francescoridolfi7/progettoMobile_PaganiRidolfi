@@ -49,7 +49,7 @@ class _TeamDetailsStandingsScreenState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Nome completo: ${widget.standings.team.name}',
+              'Nome completo:   ${widget.standings.team.name}',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -57,21 +57,21 @@ class _TeamDetailsStandingsScreenState
               ),
             ),
             Text(
-              'Abbreviazione: ${widget.standings.team.nickname}',
+              'Soprannome:   ${widget.standings.team.nickname}',
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Roboto',
               ),
             ),
             Text(
-              'Conferenza: ${widget.standings.conference.name}',
+              'Conferenza:  ${widget.standings.conference.name}',
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Roboto',
               ),
             ),
             Text(
-              'Divisione: ${widget.standings.division.name}',
+              'Divisione:   ${widget.standings.division.name}',
               style: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Roboto',
@@ -158,7 +158,7 @@ class _TeamDetailsStandingsScreenState
                           title: Text(
                               '${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
                           subtitle: Text(
-                              'Jersey: ${player.leagues.standard.jersey}, Country: ${player.birth.country}, Height: ${player.height.feets}\'${player.height.inches}", Weight: ${player.weight.pounds} lbs, Date: ${player.birth.date}, College: ${player.college}'),
+                              'Maglietta: ${player.leagues.standard.jersey}, Paese: ${player.birth.country}, Altezza: ${player.height.feets}\'${player.height.inches}", Peso: ${player.weight.pounds} lbs, Data di nascita: ${player.birth.date}, College: ${player.college}'),
                         );
                       },
                     ),

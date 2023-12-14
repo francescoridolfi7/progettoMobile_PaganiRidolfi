@@ -123,19 +123,19 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: const Text('Team List'),
+              title: const Text('Lista Squadre'),
               onTap: () {
                 Navigator.pushNamed(context, '/');
               },
             ),
             ListTile(
-              title: const Text('Standings'),
+              title: const Text('Classifica'),
               onTap: () {
                 Navigator.pushNamed(context, '/standings');
               },
             ),
             ListTile(
-              title: const Text('Games'),
+              title: const Text('Partite'),
               onTap: () {
                 Navigator.pushNamed(context, '/games');
               },
