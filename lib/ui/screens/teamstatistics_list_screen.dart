@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/teamstatistics_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_teamstatistics.dart';
@@ -7,13 +9,10 @@ class TeamStatisticsListScreen extends StatefulWidget {
   const TeamStatisticsListScreen({super.key, required this.teamId, required this.selectedSeason});
 
   final int teamId;
-  
   final int selectedSeason;
 
   @override
-
-  TeamStatisticsListScreenState createState() =>
-      TeamStatisticsListScreenState();
+  TeamStatisticsListScreenState createState() => TeamStatisticsListScreenState();
 }
 
 class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
@@ -24,8 +23,7 @@ class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Statistiche della squadra',
-            style: TextStyle(color: Colors.white)),
+        title: const Text('Statistiche della squadra', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: FutureBuilder<void>(
@@ -66,48 +64,51 @@ class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
                   plusMinus: 0,
                 );
 
-            return ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                _buildStatisticRow('Games:', teamStatistics.games),
-                _buildStatisticRow(
-                    'Fast Break Points:', teamStatistics.fastBreakPoints),
-                _buildStatisticRow(
-                    'Points In Paint:', teamStatistics.pointsInPaint),
-                _buildStatisticRow('Biggest Lead:', teamStatistics.biggestLead),
-                _buildStatisticRow(
-                    'Second Chance Points:', teamStatistics.secondChancePoints),
-                _buildStatisticRow(
-                    'Points Off Turnovers:', teamStatistics.pointsOffTurnovers),
-                _buildStatisticRow('Longest Run:', teamStatistics.longestRun),
-                _buildStatisticRow('Points:', teamStatistics.points),
-                _buildStatisticRow('Field Goals Made:', teamStatistics.fgm),
-                _buildStatisticRow(
-                    'Field Goals Attempted:', teamStatistics.fga),
-                _buildStatisticRow(
-                    'Field Goal Percentage:', teamStatistics.fgp),
-                _buildStatisticRow('Free Throws Made:', teamStatistics.ftm),
-                _buildStatisticRow(
-                    'Free Throws Attempted:', teamStatistics.fta),
-                _buildStatisticRow(
-                    'Free Throw Percentage:', teamStatistics.ftp),
-                _buildStatisticRow('Three-Pointers Made:', teamStatistics.tpm),
-                _buildStatisticRow(
-                    'Three-Pointers Attempted:', teamStatistics.tpa),
-                _buildStatisticRow(
-                    'Three-Point Percentage:', teamStatistics.tpp),
-                _buildStatisticRow(
-                    'Offensive Rebounds:', teamStatistics.offReb),
-                _buildStatisticRow(
-                    'Defensive Rebounds:', teamStatistics.defReb),
-                _buildStatisticRow('Total Rebounds:', teamStatistics.totReb),
-                _buildStatisticRow('Assists:', teamStatistics.assists),
-                _buildStatisticRow('Personal Fouls:', teamStatistics.pFouls),
-                _buildStatisticRow('Steals:', teamStatistics.steals),
-                _buildStatisticRow('Turnovers:', teamStatistics.turnovers),
-                _buildStatisticRow('Blocks:', teamStatistics.blocks),
-                _buildStatisticRow('Plus-Minus:', teamStatistics.plusMinus),
-              ],
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  columnSpacing: 32,
+                  columns: [
+                    DataColumn(
+                      label: Text('Statistica', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Roboto')),
+                    ),
+                    DataColumn(label: Text('')),
+                    DataColumn(
+                      label: Text('Valore', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Roboto')),
+                    ),
+                  ],
+                  rows: [
+                    _buildDataRow('Games:', teamStatistics.games),
+                    _buildDataRow('Fast Break Points:', teamStatistics.fastBreakPoints),
+                    _buildDataRow('Points In Paint:', teamStatistics.pointsInPaint),
+                    _buildDataRow('Biggest Lead:', teamStatistics.biggestLead),
+                    _buildDataRow('Second Chance Points:', teamStatistics.secondChancePoints),
+                    _buildDataRow('Points Off Turnovers:', teamStatistics.pointsOffTurnovers),
+                    _buildDataRow('Longest Run:', teamStatistics.longestRun),
+                    _buildDataRow('Points:', teamStatistics.points),
+                    _buildDataRow('Field Goals Made:', teamStatistics.fgm),
+                    _buildDataRow('Field Goals Attempted:', teamStatistics.fga),
+                    _buildDataRow('Field Goal Percentage:', teamStatistics.fgp),
+                    _buildDataRow('Free Throws Made:', teamStatistics.ftm),
+                    _buildDataRow('Free Throws Attempted:', teamStatistics.fta),
+                    _buildDataRow('Free Throw Percentage:', teamStatistics.ftp),
+                    _buildDataRow('Three-Pointers Made:', teamStatistics.tpm),
+                    _buildDataRow('Three-Pointers Attempted:', teamStatistics.tpa),
+                    _buildDataRow('Three-Point Percentage:', teamStatistics.tpp),
+                    _buildDataRow('Offensive Rebounds:', teamStatistics.offReb),
+                    _buildDataRow('Defensive Rebounds:', teamStatistics.defReb),
+                    _buildDataRow('Total Rebounds:', teamStatistics.totReb),
+                    _buildDataRow('Assists:', teamStatistics.assists),
+                    _buildDataRow('Personal Fouls:', teamStatistics.pFouls),
+                    _buildDataRow('Steals:', teamStatistics.steals),
+                    _buildDataRow('Turnovers:', teamStatistics.turnovers),
+                    _buildDataRow('Blocks:', teamStatistics.blocks),
+                    _buildDataRow('Plus-Minus:', teamStatistics.plusMinus),
+                  ],
+                ),
+              ),
             );
           }
         },
@@ -115,16 +116,11 @@ class TeamStatisticsListScreenState extends State<TeamStatisticsListScreen> {
     );
   }
 
-  Widget _buildStatisticRow(String label, num value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label),
-          Text(value.toString()),
-        ],
-      ),
-    );
+  DataRow _buildDataRow(String label, num value) {
+    return DataRow(cells: [
+      DataCell(Text(label)),
+      DataCell(Container(width: 90)),
+      DataCell(Text(value.toString())),
+    ]);
   }
 }
