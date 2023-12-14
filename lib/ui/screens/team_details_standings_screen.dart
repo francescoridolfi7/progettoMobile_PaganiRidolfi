@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
@@ -7,15 +7,30 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/tea
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/roster_view_model.dart';
 import 'package:provider/provider.dart';
 
-class TeamDetailsStandingsScreen extends StatelessWidget {
+class TeamDetailsStandingsScreen extends StatefulWidget {
   final NbaStandings standings;
   final int selectedSeason;
 
   const TeamDetailsStandingsScreen({
-    Key? key,
+    super.key,
     required this.standings,
     required this.selectedSeason,
   });
+
+  @override
+  _TeamDetailsStandingsScreenState createState() =>
+      _TeamDetailsStandingsScreenState();
+}
+
+class _TeamDetailsStandingsScreenState
+    extends State<TeamDetailsStandingsScreen> {
+  late int selectedSeason;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedSeason = widget.selectedSeason;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +39,8 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dettagli Squadra', style: TextStyle(color: Colors.white)),
+        title: const Text('Dettagli Squadra',
+            style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Padding(
@@ -33,37 +49,37 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Nome completo: ${standings.team.name}',
+              'Nome completo: ${widget.standings.team.name}',
               style: TextStyle(
-                fontSize: 24, 
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Roboto',
               ),
             ),
             Text(
-              'Abbreviazione: ${standings.team.nickname}',
+              'Abbreviazione: ${widget.standings.team.nickname}',
               style: TextStyle(
-                fontSize: 18, 
-                fontFamily: 'Roboto', 
+                fontSize: 18,
+                fontFamily: 'Roboto',
               ),
             ),
             Text(
-              'Conferenza: ${standings.conference.name}',
+              'Conferenza: ${widget.standings.conference.name}',
               style: TextStyle(
-                fontSize: 18, 
-                fontFamily: 'Roboto', 
+                fontSize: 18,
+                fontFamily: 'Roboto',
               ),
             ),
             Text(
-              'Divisione: ${standings.division.name}',
+              'Divisione: ${widget.standings.division.name}',
               style: TextStyle(
-                fontSize: 18, 
-                fontFamily: 'Roboto', 
+                fontSize: 18,
+                fontFamily: 'Roboto',
               ),
             ),
             const SizedBox(height: 16),
             Image.network(
-              standings.team.logo,
+              widget.standings.team.logo,
               width: 100,
               height: 100,
               fit: BoxFit.contain,
@@ -74,7 +90,11 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TeamStatisticsListScreen(teamId: standings.team.id),
+                    builder: (context) => TeamStatisticsListScreen(
+                      teamId: widget.standings.team.id,
+                      selectedSeason:
+                          selectedSeason, 
+                    ),
                   ),
                 );
               },
@@ -87,10 +107,38 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const Text('Roster:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Row(
+              children: [
+                Text(
+                  'Anno:',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(width: 8),
+                DropdownButton<int>(
+                  value: selectedSeason,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedSeason = value!;
+                    });
+                  },
+                  items: [2018, 2019, 2020, 2021, 2022, 2023]
+                      .map<DropdownMenuItem<int>>((int value) {
+                    return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text(value.toString()),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Roster:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
             FutureBuilder<List<NbaPlayer>>(
               future: rosterViewModel.getRoster(
-                standings.team.id,
+                widget.standings.team.id,
                 selectedSeason,
               ),
               builder: (context, snapshot) {
@@ -110,8 +158,7 @@ class TeamDetailsStandingsScreen extends StatelessWidget {
                           title: Text(
                               '${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
                           subtitle: Text(
-                              'Jersey: ${player.leagues.standard.jersey}, Country: ${player.birth.country}, Height: ${player.height.feets}\'${player.height.inches}", Weight: ${player.weight.pounds} lbs, Date: ${player.birth.date}, College: ${player.college}'
-                          ),
+                              'Jersey: ${player.leagues.standard.jersey}, Country: ${player.birth.country}, Height: ${player.height.feets}\'${player.height.inches}", Weight: ${player.weight.pounds} lbs, Date: ${player.birth.date}, College: ${player.college}'),
                         );
                       },
                     ),

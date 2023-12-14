@@ -20,6 +20,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +65,18 @@ class MyApp extends StatelessWidget {
                 settings.arguments as Map<String, dynamic>;
             final NbaTeam team = arguments['team'];
             final List<NbaPlayer> roster = arguments['roster'];
+            final int selectedSeason = arguments['selectedSeason'];
 
             return MaterialPageRoute(
               builder: (context) =>
-                  TeamDetailsScreen(team: team, roster: roster),
+                  TeamDetailsScreen(team: team, roster: roster, selectedSeason: selectedSeason),
             );
           } else if (settings.name == '/teamStatistics') {
             final int teamId = settings.arguments as int;
+            final int selectedSeason = settings.arguments as int;
 
             return MaterialPageRoute(
-              builder: (context) => TeamStatisticsListScreen(teamId: teamId),
+              builder: (context) => TeamStatisticsListScreen(teamId: teamId, selectedSeason: selectedSeason),
             );
           }
           return null;

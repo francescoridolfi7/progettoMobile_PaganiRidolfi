@@ -77,7 +77,8 @@ class TeamListScreenState extends State<TeamListScreen> {
                           MaterialPageRoute(
                             builder: (context) => TeamDetailsScreen(
                               team: selectedTeam,
-                              roster: roster,
+                              roster: roster, 
+                              selectedSeason: selectedSeason,
                             ),
                           ),
                         );
