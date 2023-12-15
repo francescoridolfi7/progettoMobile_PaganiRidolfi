@@ -57,52 +57,63 @@ class NbaTeamStatistics {
 
   factory NbaTeamStatistics.fromJson(Map<String, dynamic> json) {
     return NbaTeamStatistics(
-      games: _parseToInt(json['games']),
-      fastBreakPoints: _parseToInt(json['fastBreakPoints']),
-      pointsInPaint: _parseToInt(json['pointsInPaint']),
-      biggestLead: _parseToInt(json['biggestLead']),
-      secondChancePoints: _parseToInt(json['secondChancePoints']),
-      pointsOffTurnovers: _parseToInt(json['pointsOffTurnovers']),
-      longestRun: _parseToInt(json['longestRun']),
-      points: _parseToInt(json['points']),
-      fgm: _parseToInt(json['fgm']),
-      fga: _parseToInt(json['fga']),
-      fgp: _parseToDouble(json['fgp']),
-      ftm: _parseToInt(json['ftm']),
-      fta: _parseToInt(json['fta']),
-      ftp: _parseToDouble(json['ftp']),
-      tpm: _parseToInt(json['tpm']),
-      tpa: _parseToInt(json['tpa']),
-      tpp: _parseToDouble(json['tpp']),
-      offReb: _parseToInt(json['offReb']),
-      defReb: _parseToInt(json['defReb']),
-      totReb: _parseToInt(json['totReb']),
-      assists: _parseToInt(json['assists']),
-      pFouls: _parseToInt(json['pFouls']),
-      steals: _parseToInt(json['steals']),
-      turnovers: _parseToInt(json['turnovers']),
-      blocks: _parseToInt(json['blocks']),
-      plusMinus: _parseToInt(json['plusMinus']),
+      games: json['games'] as int? ?? 0,
+      fastBreakPoints: json['fastBreakPoints'] as int? ?? 0,
+      pointsInPaint: json['pointsInPaint'] as int? ?? 0,
+      biggestLead: json['biggestLead'] as int? ?? 0,
+      secondChancePoints: json['secondChancePoints'] as int? ?? 0,
+      pointsOffTurnovers: json['pointsOffTurnovers'] as int? ?? 0,
+      longestRun: json['longestRun'] as int? ?? 0,
+      points: json['points'] as int? ?? 0,
+      fgm: json['fgm'] as int? ?? 0,
+      fga: json['fga'] as int? ?? 0,
+      fgp: json['fgp'] as double? ?? 0.0,
+      ftm: json['ftm'] as int? ?? 0,
+      fta: json['fta'] as int? ?? 0,
+      ftp: json['ftp'] as double? ?? 0.0,
+      tpm: json['tpm'] as int? ?? 0,
+      tpa: json['tpa'] as int? ?? 0,
+      tpp: json['tpp'] as double? ?? 0.0,
+      offReb: json['offReb'] as int? ?? 0,
+      defReb: json['defReb'] as int? ?? 0,
+      totReb: json['totReb'] as int? ?? 0,
+      assists: json['assists'] as int? ?? 0,
+      pFouls: json['pFouls'] as int? ?? 0,
+      steals: json['steals'] as int? ?? 0,
+      turnovers: json['turnovers'] as int? ?? 0,
+      blocks: json['blocks'] as int? ?? 0,
+      plusMinus: json['plusMinus'] as int? ?? 0,
     );
   }
 
-  static int _parseToInt(dynamic value) {
-    if (value is int) {
-      return value;
-    } else if (value is String) {
-      return int.tryParse(value) ?? 0;
-    } else {
-      return 0;
-    }
-  }
-
-  static double _parseToDouble(dynamic value) {
-    if (value is double) {
-      return value;
-    } else if (value is String) {
-      return double.tryParse(value) ?? 0.0;
-    } else {
-      return 0.0;
-    }
+  Map<String, dynamic> toJson() {
+    return {
+      'games': games,
+      'fastBreakPoints': fastBreakPoints,
+      'pointsInPaint': pointsInPaint,
+      'biggestLead': biggestLead,
+      'secondChancePoints': secondChancePoints,
+      'pointsOffTurnovers': pointsOffTurnovers,
+      'longestRun': longestRun,
+      'points': points,
+      'fgm': fgm,
+      'fga': fga,
+      'fgp': fgp,
+      'ftm': ftm,
+      'fta': fta,
+      'ftp': ftp,
+      'tpm': tpm,
+      'tpa': tpa,
+      'tpp': tpp,
+      'offReb': offReb,
+      'defReb': defReb,
+      'totReb': totReb,
+      'assists': assists,
+      'pFouls': pFouls,
+      'steals': steals,
+      'turnovers': turnovers,
+      'blocks': blocks,
+      'plusMinus': plusMinus,
+    };
   }
 }
