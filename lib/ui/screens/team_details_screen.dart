@@ -96,7 +96,7 @@ class TeamDetailsScreen extends StatelessWidget {
                   return ListTile(
                     title: Text('${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
                     subtitle: Text(
-                      'Maglietta: ${player.leagues.standard.jersey}, Paese: ${player.birth.country}, Altezza: ${player.height.feets}\'${player.height.inches}", Peso: ${player.weight.pounds} lbs, Data di nascita: ${player.birth.date}, College: ${player.college}'
+                      'Numero: ${player.leagues.standard.jersey}, Paese: ${player.birth.country}, Altezza: ${player.height.feets}\'${player.height.inches}", Peso: ${player.weight.pounds} lbs, Data di nascita: ${player.birth.date}, College: ${player.college}'
                     ),
                   );
                 },
