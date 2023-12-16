@@ -20,7 +20,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +45,9 @@ class MyApp extends StatelessWidget {
               RosterViewModel(Provider.of<NbaApi>(context, listen: false)),
         ),
         ChangeNotifierProvider(
-          create: (context) => TeamStatisticsViewModel(Provider.of<NbaApi>(
-              context,
-              listen: false)), 
+          create: (context) => TeamStatisticsViewModel(
+            Provider.of<NbaApi>(context, listen: false),
+          ),
         ),
       ],
       child: MaterialApp(
@@ -68,15 +67,21 @@ class MyApp extends StatelessWidget {
             final int selectedSeason = arguments['selectedSeason'];
 
             return MaterialPageRoute(
-              builder: (context) =>
-                  TeamDetailsScreen(team: team, roster: roster, selectedSeason: selectedSeason),
+              builder: (context) => TeamDetailsScreen(
+                team: team,
+                roster: roster,
+                selectedSeason: selectedSeason,
+              ),
             );
           } else if (settings.name == '/teamStatistics') {
             final int teamId = settings.arguments as int;
             final int selectedSeason = settings.arguments as int;
 
             return MaterialPageRoute(
-              builder: (context) => TeamStatisticsListScreen(teamId: teamId, selectedSeason: selectedSeason),
+              builder: (context) => TeamStatisticsListScreen(
+                teamId: teamId,
+                selectedSeason: selectedSeason,
+              ),
             );
           }
           return null;
@@ -86,8 +91,21 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const TeamListScreen(),
+    const StandingsListScreen(),
+    const GamesListScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                 color: Color.fromARGB(255, 29, 66, 138),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, 
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
                     'NBA App',
@@ -114,37 +132,69 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Image.asset(
-                    'assets/nba_logo.png', 
-                    height: 80, 
+                    'assets/nba_logo.png',
+                    height: 80,
                   ),
-                  const SizedBox(height: 8), 
-                  
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
             ListTile(
               title: const Text('Lista Squadre'),
               onTap: () {
-                Navigator.pushNamed(context, '/');
+                _navigateTo(0);
               },
             ),
             ListTile(
               title: const Text('Classifica'),
               onTap: () {
-                Navigator.pushNamed(context, '/standings');
+                _navigateTo(1);
               },
             ),
             ListTile(
               title: const Text('Partite'),
               onTap: () {
-                Navigator.pushNamed(context, '/games');
+                _navigateTo(2);
               },
             ),
           ],
         ),
       ),
-      body: const TeamListScreen(),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        backgroundColor: const Color.fromARGB(255, 29, 66, 138),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white.withOpacity(0.6),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sports_basketball),
+            label: 'Squadre',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assessment),
+            label: 'Classifica',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.scoreboard),
+            label: 'Partite',
+          ),
+        ],
+      ),
     );
   }
-}
 
+  void _onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  void _navigateTo(int index) {
+    setState(() {
+      _currentIndex = index;
+      Navigator.pop(context);
+    });
+  }
+}
