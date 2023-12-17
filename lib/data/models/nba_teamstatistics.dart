@@ -86,6 +86,37 @@ class NbaTeamStatistics {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'games': games,
+      'fastBreakPoints': fastBreakPoints,
+      'pointsInPaint': pointsInPaint,
+      'biggestLead': biggestLead,
+      'secondChancePoints': secondChancePoints,
+      'pointsOffTurnovers': pointsOffTurnovers,
+      'longestRun': longestRun,
+      'points': points,
+      'fgm': fgm,
+      'fga': fga,
+      'fgp': fgp,
+      'ftm': ftm,
+      'fta': fta,
+      'ftp': ftp,
+      'tpm': tpm,
+      'tpa': tpa,
+      'tpp': tpp,
+      'offReb': offReb,
+      'defReb': defReb,
+      'totReb': totReb,
+      'assists': assists,
+      'pFouls': pFouls,
+      'steals': steals,
+      'turnovers': turnovers,
+      'blocks': blocks,
+      'plusMinus': plusMinus,
+    };
+  }
+
   static int _parseToInt(dynamic value) {
     if (value is int) {
       return value;

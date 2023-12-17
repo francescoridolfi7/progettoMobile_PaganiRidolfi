@@ -1,3 +1,4 @@
+
 class NbaGame {
   final int id;
   final String league;
@@ -37,7 +38,7 @@ class NbaGame {
       date: NbaGameDate.fromJson(json['date'] ?? {}),
       stage: json['stage'] ?? 0,
       status: NbaGameStatus.fromJson(json['status'] ?? {}),
-      periods:NbaGamePeriods.fromJson(json['periods'] ?? {}),
+      periods: NbaGamePeriods.fromJson(json['periods'] ?? {}),
       arena: NbaGameArena.fromJson(json['arena'] ?? {}),
       teams: NbaGameTeams.fromJson(json['teams'] ?? {}),
       scores: NbaGameScores.fromJson(json['scores'] ?? {}),
@@ -45,6 +46,24 @@ class NbaGame {
       leadChanges: json['leadChanges'] ?? 0,
       nugget: json['nugget'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'league': league,
+      'season': season,
+      'date': date.toJson(),
+      'stage': stage,
+      'status': status.toJson(),
+      'periods': periods.toJson(),
+      'arena': arena.toJson(),
+      'teams': teams.toJson(),
+      'scores': scores.toJson(),
+      'timesTied': timesTied,
+      'leadChanges': leadChanges,
+      'nugget': nugget,
+    };
   }
 }
 
@@ -65,6 +84,14 @@ class NbaGameDate {
       end: DateTime.parse(json['end'] ?? ''),
       duration: json['duration'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'start': start.toIso8601String(),
+      'end': end.toIso8601String(),
+      'duration': duration,
+    };
   }
 }
 
@@ -89,6 +116,15 @@ class NbaGameStatus {
       long: json['long'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'clock': clock,
+      'halftime': halftime,
+      'short': short,
+      'long': long,
+    };
+  }
 }
 
 class NbaGamePeriods {
@@ -108,6 +144,14 @@ class NbaGamePeriods {
       total: json['total'] ?? 0,
       endOfPeriod: json['endOfPeriod'] ?? false,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'current': current,
+      'total': total,
+      'endOfPeriod': endOfPeriod,
+    };
   }
 }
 
@@ -132,6 +176,15 @@ class NbaGameArena {
       country: json['country'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'city': city,
+      'state': state,
+      'country': country,
+    };
+  }
 }
 
 class NbaGameTeams {
@@ -148,6 +201,13 @@ class NbaGameTeams {
       visitors: NbaGameTeam.fromJson(json['visitors'] ?? {}),
       home: NbaGameTeam.fromJson(json['home'] ?? {}),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'visitors': visitors.toJson(),
+      'home': home.toJson(),
+    };
   }
 }
 
@@ -175,6 +235,16 @@ class NbaGameTeam {
       logo: json['logo'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'nickname': nickname,
+      'code': code,
+      'logo': logo,
+    };
+  }
 }
 
 class NbaGameScores {
@@ -192,11 +262,16 @@ class NbaGameScores {
       home: NbaGameTeamScore.fromJson(json['home'] ?? {}),
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'visitors': visitors.toJson(),
+      'home': home.toJson(),
+    };
+  }
 }
 
-class NbaGameofficials{
 
-}
 class NbaGameTeamScore {
   final int win;
   final int loss;
@@ -217,12 +292,19 @@ class NbaGameTeamScore {
       win: json['win'] ?? 0,
       loss: json['loss'] ?? 0,
       series: NbaGameTeamSeries.fromJson(json['series'] ?? {}),
-      linescore: (json['linescore'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          [],
+      linescore: (json['linescore'] as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
       points: json['points'] ?? 0,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'win': win,
+      'loss': loss,
+      'series': series.toJson(),
+      'linescore': linescore,
+      'points': points,
+    };
   }
 }
 
@@ -240,5 +322,12 @@ class NbaGameTeamSeries {
       win: json['win'] ?? 0,
       loss: json['loss'] ?? 0,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'win': win,
+      'loss': loss,
+    };
   }
 }

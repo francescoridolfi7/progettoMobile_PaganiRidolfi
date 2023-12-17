@@ -3,7 +3,7 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nb
 class NbaStandings {
   final String league;
   final int season;
-  final NbaTeam team; 
+  final NbaTeam team;
   final StandingsConference conference;
   final StandingsDivision division;
   final StandingsWinLoss win;
@@ -31,7 +31,7 @@ class NbaStandings {
     return NbaStandings(
       league: json['league'] ?? '',
       season: json['season'] ?? 0,
-      team: NbaTeam.fromJson(json['team'] ?? {}), 
+      team: NbaTeam.fromJson(json['team'] ?? {}),
       conference: StandingsConference.fromJson(json['conference'] ?? {}),
       division: StandingsDivision.fromJson(json['division'] ?? {}),
       win: StandingsWinLoss.fromJson(json['win'] ?? {}),
@@ -42,8 +42,23 @@ class NbaStandings {
       tieBreakerPoints: json['tieBreakerPoints'],
     );
   }
-}
 
+  Map<String, dynamic> toJson() {
+    return {
+      'league': league,
+      'season': season,
+      'team': team.toJson(),
+      'conference': conference.toJson(),
+      'division': division.toJson(),
+      'win': win.toJson(),
+      'loss': loss.toJson(),
+      'gamesBehind': gamesBehind,
+      'streak': streak,
+      'winStreak': winStreak,
+      'tieBreakerPoints': tieBreakerPoints,
+    };
+  }
+}
 
 class StandingsConference {
   final String name;
@@ -66,6 +81,15 @@ class StandingsConference {
       loss: json['loss'] ?? 0,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'rank': rank,
+      'win': win,
+      'loss': loss,
+    };
+  }
 }
 
 class StandingsDivision {
@@ -73,7 +97,7 @@ class StandingsDivision {
   final int rank;
   final int win;
   final int loss;
-   final String gamesBehind;
+  final String gamesBehind;
 
   StandingsDivision({
     required this.name,
@@ -91,6 +115,16 @@ class StandingsDivision {
       loss: json['loss'] ?? 0,
       gamesBehind: json['gamesBehind'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'rank': rank,
+      'win': win,
+      'loss': loss,
+      'gamesBehind': gamesBehind,
+    };
   }
 }
 
@@ -117,5 +151,15 @@ class StandingsWinLoss {
       percentage: json['percentage'] ?? '',
       lastTen: json['lastTen'] ?? 0,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'home': home,
+      'away': away,
+      'total': total,
+      'percentage': percentage,
+      'lastTen': lastTen,
+    };
   }
 }
