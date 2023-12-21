@@ -69,19 +69,16 @@ class NbaGame {
 
 class NbaGameDate {
   final DateTime start;
-  final DateTime end;
   final String duration;
 
   NbaGameDate({
     required this.start,
-    required this.end,
     required this.duration,
   });
 
   factory NbaGameDate.fromJson(Map<String, dynamic> json) {
     return NbaGameDate(
       start: DateTime.parse(json['start'] ?? ''),
-      end: DateTime.parse(json['end'] ?? ''),
       duration: json['duration'] ?? '',
     );
   }
@@ -89,7 +86,6 @@ class NbaGameDate {
   Map<String, dynamic> toJson() {
     return {
       'start': start.toIso8601String(),
-      'end': end.toIso8601String(),
       'duration': duration,
     };
   }

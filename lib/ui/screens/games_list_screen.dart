@@ -14,9 +14,18 @@ class GamesListScreen extends StatefulWidget {
 }
 
 class GamesListScreenState extends State<GamesListScreen> {
-  final TextEditingController _dateController =
-      TextEditingController(text: '2022-02-12');
+  final TextEditingController _dateController = TextEditingController();
   final logger = Logger();
+
+  @override
+  void initState() {
+    super.initState();
+    _dateController.text = getCurrentDate();
+  }
+
+  String getCurrentDate() {
+    return DateFormat('yyyy-MM-dd').format(DateTime.now());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +50,7 @@ class GamesListScreenState extends State<GamesListScreen> {
                   onPressed: () async {
                     DateTime? pickedDate = await showDatePicker(
                       context: context,
-                      initialDate: DateTime(2022, 2, 12),
+                      initialDate: DateTime.now(),
                       firstDate: DateTime(2018),
                       lastDate: DateTime(2023, 12, 31),
                     );
