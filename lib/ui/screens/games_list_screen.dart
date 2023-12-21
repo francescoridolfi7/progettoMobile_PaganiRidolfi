@@ -52,7 +52,13 @@ class GamesListScreenState extends State<GamesListScreen> {
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(2018),
-                      lastDate: DateTime(2023, 12, 31),
+                      lastDate: DateTime.now(),
+                      selectableDayPredicate: (DateTime date) {
+                        /* Restituisce false per escludere il periodo dal 11 marzo 2020 al 15 aprile 2020
+                        in quanto non sono state disputate partite causa covid */
+                        return !((date.isAfter(DateTime(2020, 3, 11)) &&
+                            date.isBefore(DateTime(2020, 4, 16))));
+                      },
                     );
 
                     if (pickedDate != null) {
