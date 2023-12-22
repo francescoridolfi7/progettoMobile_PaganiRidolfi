@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StandingsViewModel extends ChangeNotifier {
   final NbaApi nbaApi;
@@ -47,22 +48,40 @@ class StandingsViewModel extends ChangeNotifier {
 
   Future<void> fetchStandings(int season) async {
     try {
-      final cachedStandings = await _readStandingsFromFile(season);
+      const lastUpdateTimeKey = 'lastUpdateTimeStandings';  // Use a unique key for standings
 
-      if (cachedStandings.isNotEmpty) {
-        _standings = cachedStandings;
-        notifyListeners();
-      } else {
+      final prefs = await SharedPreferences.getInstance();
+      final lastUpdateTime = prefs.getInt(lastUpdateTimeKey) ?? 0;
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
+
+      if (currentTime - lastUpdateTime > 24 * 60 * 60 * 1000) {
+        // E' passato più di 24 ore dall'ultima chiamata API
+        final cachedStandings = await _readStandingsFromFile(season);
+
+        if (cachedStandings.isNotEmpty) {
+          _standings = cachedStandings;
+          notifyListeners();
+        }
+
         final standingsData = await nbaApi.getNBAStandings(season);
         final standingsList = (standingsData['response'] as List<dynamic>)
             .map((standingsJson) => NbaStandings.fromJson(standingsJson))
             .toList();
 
-       
         await _writeStandingsToFile(season, standingsList);
 
         _standings = standingsList;
         notifyListeners();
+
+        // Aggiorna il timestamp dell'ultima chiamata API
+        await prefs.setInt(lastUpdateTimeKey, currentTime);
+      } else {
+        final cachedStandings = await _readStandingsFromFile(season);
+
+        if (cachedStandings.isNotEmpty) {
+          _standings = cachedStandings;
+          notifyListeners();
+        }
       }
     } catch (e, stacktrace) {
       _logger.e('Errore durante il recupero delle classifiche', error: e, stackTrace: stacktrace);

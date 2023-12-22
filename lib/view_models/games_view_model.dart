@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_games.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GamesViewModel extends ChangeNotifier {
   final NbaApi nbaApi;
@@ -47,12 +48,13 @@ class GamesViewModel extends ChangeNotifier {
 
   Future<void> fetchGames(String date) async {
     try {
-      final cachedGames = await _readGamesFromFile(date);
+      const lastUpdateTimeKey = 'lastUpdateTime';
+      final prefs = await SharedPreferences.getInstance();
+      final lastUpdateTime = prefs.getInt(lastUpdateTimeKey) ?? 0;
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-      if (cachedGames.isNotEmpty) {
-        _games = cachedGames;
-        notifyListeners();
-      } else {
+      if (currentTime - lastUpdateTime > 24 * 60 * 60 * 1000) {
+        // E' passato più di 24 ore dall'ultima chiamata API
         final gamesData = await nbaApi.getNBAGames(date);
         final responseList = gamesData['response'] as List<dynamic>?;
 
@@ -64,8 +66,17 @@ class GamesViewModel extends ChangeNotifier {
           _games = gamesList;
           notifyListeners();
 
-        
           await _writeGamesToFile(date, gamesList);
+
+          // Aggiorna il timestamp dell'ultima chiamata API
+          await prefs.setInt(lastUpdateTimeKey, currentTime);
+        }
+      } else {
+        final cachedGames = await _readGamesFromFile(date);
+
+        if (cachedGames.isNotEmpty) {
+          _games = cachedGames;
+          notifyListeners();
         }
       }
     } catch (e, stacktrace) {

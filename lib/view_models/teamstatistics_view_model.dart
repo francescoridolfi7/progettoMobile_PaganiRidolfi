@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_teamstatistics.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TeamStatisticsViewModel extends ChangeNotifier {
   final NbaApi nbaApi;
@@ -48,20 +49,38 @@ class TeamStatisticsViewModel extends ChangeNotifier {
 
   Future<void> fetchTeamStatistics(int teamId, int selectedSeason) async {
     try {
-      final cachedTeamStatistics = await _readTeamStatisticsFromFile(teamId, selectedSeason);
+      const lastUpdateTimeKey = 'lastUpdateTimeTeamStatistics';  // Use a unique key for team statistics
 
-      if (cachedTeamStatistics != null) {
-        _teamStatistics = cachedTeamStatistics;
-        notifyListeners();
-      } else {
+      final prefs = await SharedPreferences.getInstance();
+      final lastUpdateTime = prefs.getInt(lastUpdateTimeKey) ?? 0;
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
+
+      if (currentTime - lastUpdateTime > 24 * 60 * 60 * 1000) {
+        // E' passato più di 24 ore dall'ultima chiamata API
+        final cachedTeamStatistics = await _readTeamStatisticsFromFile(teamId, selectedSeason);
+
+        if (cachedTeamStatistics != null) {
+          _teamStatistics = cachedTeamStatistics;
+          notifyListeners();
+        }
+
         final teamStatisticsData = await nbaApi.getNBAStatistics(teamId, selectedSeason);
         final teamStatistics = NbaTeamStatistics.fromJson(teamStatisticsData['response'][0]);
 
-       
         await _writeTeamStatisticsToFile(teamId, selectedSeason, teamStatistics);
 
         _teamStatistics = teamStatistics;
         notifyListeners();
+
+        // Aggiorna il timestamp dell'ultima chiamata API
+        await prefs.setInt(lastUpdateTimeKey, currentTime);
+      } else {
+        final cachedTeamStatistics = await _readTeamStatisticsFromFile(teamId, selectedSeason);
+
+        if (cachedTeamStatistics != null) {
+          _teamStatistics = cachedTeamStatistics;
+          notifyListeners();
+        }
       }
     } catch (e, stacktrace) {
       _logger.e('Errore durante il recupero delle statistiche della squadra', error: e, stackTrace: stacktrace);
