@@ -47,40 +47,41 @@ class GamesViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchGames(String date) async {
-    try {
-      const lastUpdateTimeKey = 'lastUpdateTime';
-      final prefs = await SharedPreferences.getInstance();
-      final lastUpdateTime = prefs.getInt(lastUpdateTimeKey) ?? 0;
-      final currentTime = DateTime.now().millisecondsSinceEpoch;
+  try {
+    final lastUpdateTimeKey = 'lastUpdateTime_$date'; // Utilizza la data come parte della chiave
+    final prefs = await SharedPreferences.getInstance();
+    final lastUpdateTime = prefs.getInt(lastUpdateTimeKey) ?? 0;
+    final currentTime = DateTime.now().millisecondsSinceEpoch;
 
-      if (currentTime - lastUpdateTime > 24 * 60 * 60 * 1000) {
-        // E' passato più di 24 ore dall'ultima chiamata API
-        final gamesData = await nbaApi.getNBAGames(date);
-        final responseList = gamesData['response'] as List<dynamic>?;
+    if (currentTime - lastUpdateTime > 24 * 60 * 60 * 1000) {
+      // È passato più di 24 ore dall'ultima chiamata API per la data selezionata
+      final gamesData = await nbaApi.getNBAGames(date);
+      final responseList = gamesData['response'] as List<dynamic>?;
 
-        if (responseList != null) {
-          final gamesList = responseList
-              .map((gamesJson) => NbaGame.fromJson(gamesJson))
-              .toList();
+      if (responseList != null) {
+        final gamesList = responseList
+            .map((gamesJson) => NbaGame.fromJson(gamesJson))
+            .toList();
 
-          _games = gamesList;
-          notifyListeners();
+        _games = gamesList;
+        notifyListeners();
 
-          await _writeGamesToFile(date, gamesList);
+        await _writeGamesToFile(date, gamesList);
 
-          // Aggiorna il timestamp dell'ultima chiamata API
-          await prefs.setInt(lastUpdateTimeKey, currentTime);
-        }
-      } else {
-        final cachedGames = await _readGamesFromFile(date);
-
-        if (cachedGames.isNotEmpty) {
-          _games = cachedGames;
-          notifyListeners();
-        }
+        // Aggiorna il timestamp dell'ultima chiamata API per la data selezionata
+        await prefs.setInt(lastUpdateTimeKey, currentTime);
       }
-    } catch (e, stacktrace) {
-      _logger.e('Errore durante il recupero dei risultati', error: e, stackTrace: stacktrace);
+    } else {
+      final cachedGames = await _readGamesFromFile(date);
+
+      if (cachedGames.isNotEmpty) {
+        _games = cachedGames;
+        notifyListeners();
+      }
     }
+  } catch (e, stacktrace) {
+    _logger.e('Errore durante il recupero dei risultati', error: e, stackTrace: stacktrace);
   }
+}
+
 }

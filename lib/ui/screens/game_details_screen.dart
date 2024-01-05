@@ -19,7 +19,7 @@ class GameDetailsScreen extends StatelessWidget {
     required this.homePoints,
   });
 
-  final logger = Logger();
+  final Logger logger = Logger();
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +33,7 @@ class GameDetailsScreen extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
-            columns: const [
-              DataColumn(label: Text('')),
-              DataColumn(label: Text('Q1')),
-              DataColumn(label: Text('Q2')),
-              DataColumn(label: Text('Q3')),
-              DataColumn(label: Text('Q4')),
-              DataColumn(
-                label: Text('Totale', style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-            ],
+            columns: buildTableColumns(),
             rows: [
               buildDataRow(visitorsLogo, visitorsLineScore, visitorsPoints),
               buildDataRow(homeLogo, homeLineScore, homePoints),
@@ -51,6 +42,18 @@ class GameDetailsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  List<DataColumn> buildTableColumns() {
+    final List<DataColumn> columns = [
+      const DataColumn(label: Text('')),
+      for (int i = 1; i <= visitorsLineScore.length; i++)
+        DataColumn(label: Text('Q$i')),
+      const DataColumn(
+        label: Text('Totale', style: TextStyle(fontWeight: FontWeight.bold)),
+      ),
+    ];
+    return columns;
   }
 
   DataRow buildDataRow(String teamLogo, List<String> lineScore, int points) {
