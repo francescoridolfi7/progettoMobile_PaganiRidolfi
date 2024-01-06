@@ -163,7 +163,14 @@ class StandingsListScreenState extends State<StandingsListScreen> {
     }
 
     result.forEach((key, value) {
-      value.sort((a, b) => b.win.total.compareTo(a.win.total));
+      // Ordina per numero di vittorie e, in caso di parità, per numero di sconfitte
+      value.sort((a, b) {
+        if (b.win.total != a.win.total) {
+          return b.win.total.compareTo(a.win.total);
+        } else {
+          return a.loss.total.compareTo(b.loss.total);
+        }
+      });
     });
 
     return result;
