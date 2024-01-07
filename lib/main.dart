@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/api/nba_api.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_roster.dart';
@@ -13,13 +16,36 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/st
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/team_list_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/teamstatistics_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:workmanager/workmanager.dart';
+
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    try {
+      final date = inputData?['date'] as String;
+      final gamesViewModel = GamesViewModel(NbaApi('4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb'));
+      await gamesViewModel.fetchGames(date);
+      return Future.value(true);
+    } catch (e, stacktrace) {
+      print('Errore durante l\'esecuzione dell\'attività in background: $e\n$stacktrace');
+      return Future.value(false);
+    }
+  });
+}
+
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Workmanager().initialize(callbackDispatcher);
   runApp(const MyApp());
 }
 
+
+
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +92,7 @@ class MyApp extends StatelessWidget {
             final List<NbaPlayer> roster = arguments['roster'];
             final int selectedSeason = arguments['selectedSeason'];
 
+
             return MaterialPageRoute(
               builder: (context) => TeamDetailsScreen(
                 team: team,
@@ -76,6 +103,7 @@ class MyApp extends StatelessWidget {
           } else if (settings.name == '/teamStatistics') {
             final int teamId = settings.arguments as int;
             final int selectedSeason = settings.arguments as int;
+
 
             return MaterialPageRoute(
               builder: (context) => TeamStatisticsListScreen(
@@ -91,21 +119,26 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
 
   @override
   HomeScreenState createState() => HomeScreenState();
 }
 
+
 class HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
 
   final List<Widget> _screens = [
     const TeamListScreen(),
     const StandingsListScreen(),
     const GamesListScreen(),
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -185,11 +218,13 @@ class HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
+
 
   void _navigateTo(int index) {
     setState(() {
