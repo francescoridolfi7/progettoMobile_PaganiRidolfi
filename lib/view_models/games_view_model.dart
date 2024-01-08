@@ -84,7 +84,7 @@ class GamesViewModel extends ChangeNotifier {
           await prefs.setInt(lastUpdateTimeKey, currentTime);
 
 
-          // Pianifica l'attività in background
+          
           await Workmanager().registerOneOffTask(
             "myTask",
             "simpleTask",
