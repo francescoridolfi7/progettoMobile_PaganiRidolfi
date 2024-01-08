@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class NbaDataStorage {
   Future<Map<String, dynamic>> fetchAndSaveData(
       String url, Map<String, String> params, String storageKey) async {
-    const String apiKey = '4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb';
+    final String apiKey = dotenv.env['API_KEY']!;
     final Map<String, String> headers = {
       'X-RapidAPI-Key': apiKey,
       'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',

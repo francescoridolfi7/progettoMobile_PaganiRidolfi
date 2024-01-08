@@ -17,13 +17,14 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/te
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/teamstatistics_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:workmanager/workmanager.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void callbackDispatcher() {
+  dotenv.load();
   Workmanager().executeTask((task, inputData) async {
     try {
       final date = inputData?['date'] as String;
-      final gamesViewModel = GamesViewModel(NbaApi('4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb'));
+      final gamesViewModel = GamesViewModel(NbaApi(dotenv.env['API_KEY']!));
       await gamesViewModel.fetchGames(date);
       return Future.value(true);
     } catch (e, stacktrace) {
@@ -34,7 +35,8 @@ void callbackDispatcher() {
 }
 
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager().initialize(callbackDispatcher);
   runApp(const MyApp());
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<NbaApi>(
           create: (context) =>
-              NbaApi('4315828859msh068310ee9c40e90p1b5d6fjsn973d9e4b1fbb'),
+              NbaApi(dotenv.env['API_KEY']!),
         ),
         ChangeNotifierProvider(
           create: (context) => TeamListViewModel(),
