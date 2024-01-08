@@ -1,4 +1,4 @@
-### Relazione del Progetto: Applicazione Flutter per Squadre NBA
+# Relazione del Progetto: Applicazione Flutter per Squadre NBA
 ## Scopo del Progetto:
 L'obiettivo del progetto è sviluppare un'applicazione mobile Flutter, dedicata alle squadre della lega NBA.
 L'app fornisce informazioni dettagliate sulle squadre,  classifiche,  partite e statistiche di gioco.
