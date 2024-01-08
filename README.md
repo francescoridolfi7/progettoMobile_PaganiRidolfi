@@ -8,17 +8,17 @@ L'obiettivo principale è offrire agli utenti un’ esperienza intuitiva e compl
 # Descrizione della Struttura dei Sorgenti:
 Il progetto è strutturato in modo modulare, adottando una separazione delle responsabilità tra diversi componenti. Di seguito, una breve descrizione dei principali componenti:
 ## ViewModels (TeamList ViewModel, Standings ViewModel, Games ViewModel, Roster ViewModel, TeamStatistics ViewModel):  
-Gestiscono i dati per le rispettive funzionalità dell'applicazione attraverso l'utilizzo di provider per la gestione dello stato. 
+ - Gestiscono i dati per le rispettive funzionalità dell'applicazione attraverso l'utilizzo di provider per la gestione dello stato. 
 ## Screens:
   - HomeScreen: Schermata principale che contiene un'app bar, un drawer e una bottom navigation bar per navigare tra le diverse sezioni principali dell'app.
   - TeamListScreen, StandingsListScreen, GamesListScreen: Schermate dedicate rispettivamente alla lista delle squadre, alle due classifiche per conference ed alle partite NBA.
   - TeamDetailsScreen, TeamStatisticsListScreen: Schermate per visualizzare i dettagli di una squadra, come roster, città ecc.  e le statistiche principali di gioco.
 ## Main:
-main.dart: File principale che configura il “MaterialApp” e istanzia i provider necessari per l'intera app. Definisce le rotte e le schermate principali.
+ - main.dart: File principale che configura il “MaterialApp” e istanzia i provider necessari per l'intera app. Definisce le rotte e le schermate principali.
 
 ## API e Modelli:
-nba_api.dart: Contiene le chiamate alle API della NBA utilizzate per ottenere i dati.
-nba_team.dart, nba_roster.dart, nba_standings.dart, ecc.: Modelli che rappresentano le entità principali utilizzate nell'app.
+ - nba_api.dart: Contiene le chiamate alle API della NBA utilizzate per ottenere i dati.
+ - nba_team.dart, nba_roster.dart, nba_standings.dart, ecc.: Modelli che rappresentano le entità principali utilizzate nell'app.
 
 
 # Punti di Forza:
