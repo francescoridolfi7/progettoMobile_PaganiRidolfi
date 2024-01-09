@@ -1,0 +1,1 @@
+ C:\\Users\\pc\\Desktop\\ESAME\ MOBILE\\progettoMobile_PaganiRidolfi\\.dart_tool\\flutter_build\\53903967435dd3bd745caa65d86297c5\\native_assets.yaml: 

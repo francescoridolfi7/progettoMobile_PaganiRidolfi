@@ -1,0 +1,20 @@
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-jetified-annotation-experimental-1.1.0-0 C:\Users\pc\.gradle\caches\transforms-3\37081f5775e70cbdd20dc6397f05f75b\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-core-1.6.0-1 C:\Users\pc\.gradle\caches\transforms-3\4e5ad1fc7d9e260f5ffc15cd2d562d93\transformed\core-1.6.0\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-jetified-window-java-1.0.0-beta04-2 C:\Users\pc\.gradle\caches\transforms-3\51cd90743e70edfefbb6d06eb4f0965f\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-sqlite-framework-2.3.0-3 C:\Users\pc\.gradle\caches\transforms-3\67d1d56647b1b354d08206c9ef926c7b\transformed\sqlite-framework-2.3.0\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-room-runtime-2.5.0-4 C:\Users\pc\.gradle\caches\transforms-3\8733a4faeab3d347a659cd8ae59d3333\transformed\room-runtime-2.5.0\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-jetified-window-1.0.0-beta04-5 C:\Users\pc\.gradle\caches\transforms-3\880a66cf4ae8ae026fee2686f16a9f93\transformed\jetified-window-1.0.0-beta04\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-jetified-startup-runtime-1.0.0-6 C:\Users\pc\.gradle\caches\transforms-3\a96c30af727420edcda6dec136fd1e75\transformed\jetified-startup-runtime-1.0.0\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-sqlite-2.3.0-7 C:\Users\pc\.gradle\caches\transforms-3\d3cadeefa7b805309808494ce9aa36e4\transformed\sqlite-2.3.0\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-work-runtime-2.8.1-8 C:\Users\pc\.gradle\caches\transforms-3\d6d0feec356489bd174b455114aa13f4\transformed\work-runtime-2.8.1\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-debug-9 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\android\app\src\debug\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-main-10 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\android\app\src\main\res
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-pngs-11 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\app\generated\res\pngs\debug
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-resValues-12 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\app\generated\res\resValues\debug
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-rs-13 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\app\generated\res\rs\debug
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-mergeDebugResources-14 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-mergeDebugResources-15 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-merged_res-16 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\app\intermediates\merged_res\debug
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-packaged_res-17 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\path_provider_android\intermediates\packaged_res\debug
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-packaged_res-18 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\shared_preferences_android\intermediates\packaged_res\debug
+com.example.flutter_application_progettomobile_pagani_ridolfi.app-packaged_res-19 C:\Users\pc\Desktop\ESAME MOBILE\progettoMobile_PaganiRidolfi\build\workmanager\intermediates\packaged_res\debug
