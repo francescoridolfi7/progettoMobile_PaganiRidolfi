@@ -57,29 +57,46 @@ class GameDetailsScreen extends StatelessWidget {
   }
 
   DataRow buildDataRow(String teamLogo, List<String> lineScore, int points) {
-    try {
-      if (isImageUrlValid(teamLogo)) {
-        return DataRow(
-          cells: [
-            DataCell(Image.network(teamLogo, width: 30, height: 30)),
-            for (String score in lineScore)
-              DataCell(Center(child: Text(score))),
-            DataCell(Text('$points')),
-          ],
-        );
-      }
-    } catch (e) {
-      logger.e('Errore durante il caricamento dell\'immagine: $e');
+  try {
+    if (isImageUrlValid(teamLogo)) {
+      return DataRow(
+        cells: [
+          DataCell(
+            Image.network(
+              teamLogo,
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                // In caso di errore nel caricamento dell'immagine, mostra il fallback_logo.png
+                return Image.asset(
+                  'assets/fallback_logo.png',
+                  width: 30,
+                  height: 30,
+                  fit: BoxFit.contain,
+                );
+              },
+            ),
+          ),
+          for (String score in lineScore)
+            DataCell(Center(child: Text(score))),
+          DataCell(Text('$points')),
+        ],
+      );
     }
-
-    return DataRow(
-      cells: [
-        DataCell(Container()),
-        for (String score in lineScore) DataCell(Center(child: Text(score))),
-        DataCell(Text('$points')),
-      ],
-    );
+  } catch (e) {
+    logger.e('Errore durante il caricamento dell\'immagine: $e');
   }
+
+  return DataRow(
+    cells: [
+      DataCell(Container()),
+      for (String score in lineScore) DataCell(Center(child: Text(score))),
+      DataCell(Text('$points')),
+    ],
+  );
+}
+
 
   bool isImageUrlValid(String? imageUrl) {
     return imageUrl != null && imageUrl.isNotEmpty;

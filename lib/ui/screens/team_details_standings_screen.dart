@@ -83,6 +83,16 @@ class _TeamDetailsStandingsScreenState
               width: 100,
               height: 100,
               fit: BoxFit.contain,
+              errorBuilder:
+                  (BuildContext context, Object error, StackTrace? stackTrace) {
+                // In caso di errore nel caricamento dell'immagine, mostra il fallback_logo.png
+                return Image.asset(
+                  'assets/fallback_logo.png',
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.contain,
+                );
+              },
             ),
             const SizedBox(height: 8),
             ElevatedButton(
@@ -92,8 +102,7 @@ class _TeamDetailsStandingsScreenState
                   MaterialPageRoute(
                     builder: (context) => TeamStatisticsListScreen(
                       teamId: widget.standings.team.id,
-                      selectedSeason:
-                          selectedSeason, 
+                      selectedSeason: selectedSeason,
                     ),
                   ),
                 );

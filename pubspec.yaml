@@ -35,6 +35,7 @@ flutter:
   assets:
     - .env
     - assets/nba_logo.png
+    - assets/fallback_logo.png
   fonts:
     - family: Roboto
       fonts:

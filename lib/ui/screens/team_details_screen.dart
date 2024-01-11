@@ -8,16 +8,21 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/tea
 class TeamDetailsScreen extends StatelessWidget {
   final NbaTeam team;
   final List<NbaPlayer> roster;
-  
+
   final int selectedSeason;
 
-  const TeamDetailsScreen({Key? key, required this.team, required this.roster, required this.selectedSeason});
+  const TeamDetailsScreen(
+      {Key? key,
+      required this.team,
+      required this.roster,
+      required this.selectedSeason});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dettagli Squadra', style: TextStyle(color: Colors.white)),
+        title: const Text('Dettagli Squadra',
+            style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Padding(
@@ -28,37 +33,37 @@ class TeamDetailsScreen extends StatelessWidget {
             Text(
               'Nome completo:   ${team.name}',
               style: TextStyle(
-                fontSize: 24, 
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto', 
+                fontFamily: 'Roboto',
               ),
             ),
             Text(
               'Soprannome:   ${team.nickname}',
               style: TextStyle(
-                fontSize: 18, 
-                fontFamily: 'Roboto', 
+                fontSize: 18,
+                fontFamily: 'Roboto',
               ),
             ),
             Text(
               'Città:   ${team.city}',
               style: TextStyle(
-                fontSize: 18, 
-                fontFamily: 'Roboto', 
+                fontSize: 18,
+                fontFamily: 'Roboto',
               ),
             ),
             Text(
               'Conferenza:  ${team.leagues.standard.conference}',
               style: TextStyle(
-                fontSize: 18, 
-                fontFamily: 'Roboto', 
+                fontSize: 18,
+                fontFamily: 'Roboto',
               ),
             ),
             Text(
               'Divisione:   ${team.leagues.standard.division}',
               style: TextStyle(
-                fontSize: 18, 
-                fontFamily: 'Roboto', 
+                fontSize: 18,
+                fontFamily: 'Roboto',
               ),
             ),
             const SizedBox(height: 16),
@@ -67,6 +72,16 @@ class TeamDetailsScreen extends StatelessWidget {
               width: 100,
               height: 100,
               fit: BoxFit.contain,
+              errorBuilder:
+                  (BuildContext context, Object error, StackTrace? stackTrace) {
+                // In caso di errore nel caricamento dell'immagine, mostra il fallback_logo.png
+                return Image.asset(
+                  'assets/fallback_logo.png',
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.contain,
+                );
+              },
             ),
             const SizedBox(height: 8),
             ElevatedButton(
@@ -74,7 +89,8 @@ class TeamDetailsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TeamStatisticsListScreen(teamId: team.id, selectedSeason: selectedSeason),
+                    builder: (context) => TeamStatisticsListScreen(
+                        teamId: team.id, selectedSeason: selectedSeason),
                   ),
                 );
               },
@@ -87,17 +103,18 @@ class TeamDetailsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const Text('Roster:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const Text('Roster:',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             Expanded(
               child: ListView.builder(
                 itemCount: roster.length,
                 itemBuilder: (context, index) {
                   final player = roster[index];
                   return ListTile(
-                    title: Text('${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
+                    title: Text(
+                        '${player.leagues.standard.pos} - ${player.firstName} ${player.lastName}'),
                     subtitle: Text(
-                      'Numero: ${player.leagues.standard.jersey}, Paese: ${player.birth.country}, Altezza: ${player.height.feets}\'${player.height.inches}", Peso: ${player.weight.pounds} lbs, Data di nascita: ${player.birth.date}, College: ${player.college}'
-                    ),
+                        'Numero: ${player.leagues.standard.jersey}, Paese: ${player.birth.country}, Altezza: ${player.height.feets}\'${player.height.inches}", Peso: ${player.weight.pounds} lbs, Data di nascita: ${player.birth.date}, College: ${player.college}'),
                   );
                 },
               ),

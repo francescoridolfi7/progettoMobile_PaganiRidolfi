@@ -164,21 +164,32 @@ class GamesListScreenState extends State<GamesListScreen> {
   }
 
   Widget getImageWidget(String? imageUrl) {
-    try {
-      if (isImageUrlValid(imageUrl)) {
-        return Image.network(
-          imageUrl!,
-          width: 40,
-          height: 40,
-        );
-      }
-    } catch (e) {
-      logger.e('Errore durante il caricamento dell\'immagine: $e');
+  try {
+    if (isImageUrlValid(imageUrl)) {
+      return Image.network(
+        imageUrl!,
+        width: 40,
+        height: 40,
+        fit: BoxFit.contain,
+        errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+          // In caso di errore nel caricamento dell'immagine, mostra il fallback_logo.png
+          return Image.asset(
+            'assets/fallback_logo.png',
+            width: 40,
+            height: 40,
+            fit: BoxFit.contain,
+          );
+        },
+      );
     }
-
-    // Rimuovi l'immagine in caso di errore
-    return Container();
+  } catch (e) {
+    logger.e('Errore durante il caricamento dell\'immagine: $e');
   }
+
+  // Rimuovi l'immagine in caso di errore
+  return Container();
+}
+
 
   String getTeamAbbreviation(String teamName) {
     final words = teamName.split(' ');

@@ -3,9 +3,10 @@ import 'package:flutter_application_progettomobile_pagani_ridolfi/ui/screens/tea
 import 'package:flutter_application_progettomobile_pagani_ridolfi/view_models/standings_view_model.dart';
 import 'package:flutter_application_progettomobile_pagani_ridolfi/data/models/nba_standings.dart';
 import 'package:provider/provider.dart';
+import 'package:logger/logger.dart';
 
 class StandingsListScreen extends StatefulWidget {
-  const StandingsListScreen({super.key});
+ const StandingsListScreen({super.key});
 
   @override
   StandingsListScreenState createState() => StandingsListScreenState();
@@ -13,16 +14,15 @@ class StandingsListScreen extends StatefulWidget {
 
 class StandingsListScreenState extends State<StandingsListScreen> {
   int selectedSeason = 2023; // Inizializza con la stagione predefinita
+  final logger = Logger();
 
   @override
   Widget build(BuildContext context) {
-    final standingsViewModel =
-        Provider.of<StandingsViewModel>(context, listen: false);
+    final standingsViewModel = Provider.of<StandingsViewModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Classifica NBA', style: TextStyle(color: Colors.white)),
+        title: const Text('Classifica NBA', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color.fromARGB(255, 29, 66, 138),
       ),
       body: Column(
@@ -56,16 +56,13 @@ class StandingsListScreenState extends State<StandingsListScreen> {
                   return Center(child: Text('Errore: ${snapshot.error}'));
                 } else {
                   final standings = standingsViewModel.standings;
-                  final Map<String, List<NbaStandings>> standingsByConference =
-                      groupStandingsByConference(standings);
+                  final Map<String, List<NbaStandings>> standingsByConference = groupStandingsByConference(standings);
 
                   return ListView.builder(
                     itemCount: standingsByConference.length,
                     itemBuilder: (context, conferenceIndex) {
-                      final conferenceName =
-                          standingsByConference.keys.elementAt(conferenceIndex);
-                      final conferenceStandings =
-                          standingsByConference[conferenceName]!;
+                      final conferenceName = standingsByConference.keys.elementAt(conferenceIndex);
+                      final conferenceStandings = standingsByConference[conferenceName]!;
 
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,8 +99,7 @@ class StandingsListScreenState extends State<StandingsListScreen> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) =>
-                                                  TeamDetailsStandingsScreen(
+                                              builder: (context) => TeamDetailsStandingsScreen(
                                                 standings: team,
                                                 selectedSeason: selectedSeason,
                                               ),
@@ -112,11 +108,7 @@ class StandingsListScreenState extends State<StandingsListScreen> {
                                         },
                                         child: Row(
                                           children: [
-                                            Image.network(
-                                              team.team.logo,
-                                              width: 30,
-                                              height: 30,
-                                            ),
+                                            getImageWidget(team.team.logo),
                                             const SizedBox(width: 8),
                                             Text(team.team.name),
                                           ],
@@ -128,10 +120,8 @@ class StandingsListScreenState extends State<StandingsListScreen> {
                                     DataCell(Text('${team.loss.total}')),
                                     DataCell(Text(team.win.percentage)),
                                     DataCell(Text(team.gamesBehind)),
-                                    DataCell(Text(
-                                        '${team.winStreak ? 'W' : 'L'}${team.streak}')),
-                                    DataCell(Text(
-                                        '${team.win.lastTen}-${team.loss.lastTen}')),
+                                    DataCell(Text('${team.winStreak ? 'W' : 'L'}${team.streak}')),
+                                    DataCell(Text('${team.win.lastTen}-${team.loss.lastTen}')),
                                   ],
                                 );
                               }).toList(),
@@ -150,8 +140,7 @@ class StandingsListScreenState extends State<StandingsListScreen> {
     );
   }
 
-  Map<String, List<NbaStandings>> groupStandingsByConference(
-      List<NbaStandings> standings) {
+  Map<String, List<NbaStandings>> groupStandingsByConference(List<NbaStandings> standings) {
     final Map<String, List<NbaStandings>> result = {};
 
     for (final team in standings) {
@@ -174,5 +163,36 @@ class StandingsListScreenState extends State<StandingsListScreen> {
     });
 
     return result;
+  }
+
+  bool isImageUrlValid(String? imageUrl) {
+    return imageUrl != null && imageUrl.isNotEmpty;
+  }
+
+  Widget getImageWidget(String? imageUrl) {
+    try {
+      if (isImageUrlValid(imageUrl)) {
+        return Image.network(
+          imageUrl!,
+          width: 30,
+          height: 30,
+          fit: BoxFit.contain,
+          errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+            // In caso di errore nel caricamento dell'immagine, mostra il fallback_logo.png
+            return Image.asset(
+              'assets/fallback_logo.png',
+              width: 30,
+              height: 30,
+              fit: BoxFit.contain,
+            );
+          },
+        );
+      }
+    } catch (e) {
+      logger.e('Errore durante il caricamento dell\'immagine: $e');
+    }
+
+    // Rimuovi l'immagine in caso di errore
+    return Container();
   }
 }
